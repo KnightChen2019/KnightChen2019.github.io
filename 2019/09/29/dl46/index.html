@@ -4,9 +4,10 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="机器学习模型中的一些评估指标（四十五）, 星辰白衣">
-    <meta name="description" content="对于不同的学习任务，比如分类问题，回归问题，我们学得的模型是不同的。对于不同的模型，选择合适的指标，从而判断它们的性能，进而改进这些模型，提高学习效率。这一次，就聊聊这些指标。
-分类问题（Classification）1.四个名词在介绍下面">
+    <meta name="keywords" content="这！就是对抗生成网络（四十六）, 星辰白衣">
+    <meta name="description" content="什么是GAN？对抗生成网络（Generative Adversarial Nets，GAN）是由lan Goodfellow在2014年提出来的，它是一种生成式模型，属于无监督学习。先看一张GAN的图片：
+
+GAN主要由生成网络G（Gene">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -14,7 +15,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>机器学习模型中的一些评估指标（四十五） | 星辰白衣</title>
+    <title>这！就是对抗生成网络（四十六） | 星辰白衣</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -261,13 +262,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        机器学习模型中的一些评估指标（四十五）
+                        这！就是对抗生成网络（四十六）
                     </div>
                 </div>
             </div>
@@ -378,8 +379,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/模型评估指标/" target="_blank">
-                                <span class="chip bg-color">模型评估指标</span>
+                            <a href="/tags/GAN/" target="_blank">
+                                <span class="chip bg-color">GAN</span>
                             </a>
                         
                     </div>
@@ -390,8 +391,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/模型评估/" class="post-category" target="_blank">
-                                模型评估
+                            <a href="/categories/对抗生成网络/" class="post-category" target="_blank">
+                                对抗生成网络
                             </a>
                         
                     </div>
@@ -402,21 +403,21 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-09-22
+                    2019-09-29
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        1.5k
+                        2.9k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        5 分
+                        10 分
                     </div>
                     
                 
@@ -432,51 +433,56 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>对于不同的学习任务，比如分类问题，回归问题，我们学得的模型是不同的。对于不同的模型，选择合适的指标，从而判断它们的性能，进而改进这些模型，提高学习效率。这一次，就聊聊这些指标。</p>
-<h4 id="分类问题（Classification）"><a href="#分类问题（Classification）" class="headerlink" title="分类问题（Classification）"></a>分类问题（Classification）</h4><h5 id="1-四个名词"><a href="#1-四个名词" class="headerlink" title="1.四个名词"></a>1.四个名词</h5><p>在介绍下面这些指标之前，我们先说4个基础的单词和它们缩写：</p>
+                <h5 id="什么是GAN？"><a href="#什么是GAN？" class="headerlink" title="什么是GAN？"></a>什么是GAN？</h5><p>对抗生成网络（Generative Adversarial Nets，GAN）是由lan Goodfellow在2014年提出来的，它是一种生成式模型，属于无监督学习。先看一张GAN的图片：</p>
+<p><img src="/2019/09/29/dl46/dl4601.JPG" alt="GAN"></p>
+<p>GAN主要由生成网络G（Generator Network）和判别网络D（Discriminator Network）构成，生成模型G将一个噪声包装成一个逼真的样本，判别模型D则需要判断送入的样本是真是的还是假的样本，通过这种相互博弈，判别模型D对样本的判别能力不断上升，生成模型G的造假能力也不断上升，当判别模型D无法判别生成模型G生成的图像真伪时，即达到纳什均衡。</p>
+<h5 id="纳什均衡（Nash-Equilibrium）"><a href="#纳什均衡（Nash-Equilibrium）" class="headerlink" title="纳什均衡（Nash Equilibrium）"></a>纳什均衡（Nash Equilibrium）</h5><p>也称作纳什平衡，或者非合作博弈均衡，是博弈论的一个重要术语，以约翰•纳什命名。在一个博弈过程中，不论对方的策略选择如何，当事人一方都会选择某个确定的策略，则该策略被称作支配性策略。如果两个博弈的当事人的策略组合分别构成各自的支配性策略，那么这个组合就被定义为纳什均衡。</p>
+<p>如果在一次博弈中，双方到达了纳什均衡，也就是意味着博弈双方都没有改变自己策略的动力了，因为单方面改变自己的策略都会造成自己收益的减少。那么纳什均衡点就可以理解为个体最优解，而非集体最优解。</p>
+<p>有一个经典的例子叫做囚徒困境。</p>
+<h6 id="囚徒困境"><a href="#囚徒困境" class="headerlink" title="囚徒困境"></a>囚徒困境</h6><p>假设有两个小偷A和B联合犯事，私入民宅被警察抓住。警方将两人分别置于不同的两个房间内进行审讯，对每一个犯罪嫌疑人，警方给出的政策是：如果一个犯罪嫌疑人坦白了罪行，交出了赃物，于是证据确凿，两人都被判有罪。如果另一个犯罪嫌疑人也做了坦白，则两人给被判刑8年；如果另外一个犯罪嫌疑人没有坦白而是抵赖，则以妨碍公务罪（因已有证据表明其有罪）再加刑2年，而坦白者有功被减刑8年，里脊释放。如果两人都抵赖，则警方因证据不足不能判两人的偷窃罪，但可以私入民宅的罪名将两人各判入狱1年，如下图所示：</p>
+<p><img src="/2019/09/29/dl46/dl4602.JPG" alt="囚徒困境"></p>
+<p>对于此案，最好的策略是双方都抵赖，结果是大家都只判刑1年。但是由于两人处于隔离的情况，首先从心理学的角度来看，当事双方都会怀疑对方会出卖自己以求自保，其次才是亚当斯密的理论，假设每个人都是“理性的经纪人”，都会从利己的目的出发进行选择。两人都会有这样一个盘算过程：假如他坦白，如果我抵赖，得坐10年监狱，如果我坦白，最多才8年；假如他抵赖，如果我也抵赖，我就会被判刑1年，如果我坦白，就可以被释放，而他会作10年牢。综合以上几种情况考虑，不管他坦白与否，对我而言，都是坦白了划算。两人都会这样想，最终两人都坦白了，结果都被判刑8年。</p>
+<p>这与我国开车加塞的例子很像。如果大家都不加塞，是整体的最优解，但是按照纳什均衡理论，任何一个司机都会考虑，无论别人是否加塞，我加塞都可以使自己的收益变大。于是最终大家都会加塞，加剧拥堵，反而不如大家都不加塞走的快。</p>
+<p>那么，有没有办法使个人最优变成集体最优呢？方法就是共谋。两个小偷在作案之前可以说好，咱们如果进去了，一定都抗拒。如果你这一次敢反悔，那么以后道上的人再也不会有人跟你一起了。也就是说，在多次博弈过程中，共谋是可能的。但是如果这个小偷想干完这一票就走，共谋就是不牢靠的。</p>
+<p>在社会领域，共谋是靠法律完成的。大家约定的共谋结论就是法律，如果有人不按照约定做，就会受到法律的惩罚。通过这种方式保证最终决策从个人最优的纳什均衡点变为集体最优点。</p>
+<h5 id="GAN-目标函数"><a href="#GAN-目标函数" class="headerlink" title="GAN 目标函数"></a>GAN 目标函数</h5><p>原论文中，GAN的目标函数如下：<br>$$<br>\underset{G}{min} \underset{D}{max}V(D,G) = \mathbb {E}_{x \sim P_{data}(x)}[logD(x)] +\mathbb {E}_{z \sim P_{z}(Z)}[log(1-D(G(z)))]<br>$$<br>其中G表示判别网络，D表示生成网络。</p>
+<p>$D(x)$表示判断真实数据是否真实的概率，x表示的真实数据，所以$D(x)$越接近1越好。</p>
+<p>$G(z)$是生成的假样本，所以$D(G(z))$越接近0越好。</p>
+<p>$\mathbb {E}_{x \sim P_{data}(x)}[logD(x)]$中，E表示期望，判别出x属于真实数据data的对数损失函数。最大化这一项相当于令判别器D在x服从于data的概率密度时能准确的预测$D(x)=1$。</p>
+<p>$\mathbb {E}_{z \sim P_{z}(Z)}[log(1-D(G(z)))]$表示判别器D识别$G(z)$都为0，即$G(z)$没有欺骗判别器D。</p>
+<p>从判别器D的角度看，它希望自己能尽可能的区分真实样本和虚假样本，因此希望$D(x)$尽可能大，$D(G(z))$尽可能小，即$V(D,G)$尽可能大。从生成器G的角度看，它希望自己能可能骗过D，也就是希望$D(G(z))$尽可能大，即$V(D,G)$尽可能小，两个模型对抗，最后达到全局最优。</p>
+<p>可以用下图表示整个过程：</p>
+<p><img src="/2019/09/29/dl46/dl4603.JPG" alt="训练过程"></p>
+<p>黑色曲线是真实样本的概率分布函数，绿色曲线是虚假样本的概率分布函数，蓝色曲线是判别器D的输出，它的值越大表示这个样本越有可能是真实样本，最下方的平行线是噪声z，它映射到了x。</p>
+<p>我们可以看到，一开始$G(z)$和x虽然是在同一个特征空间里，但是它们分布的差异很大，这时，虽然鉴别真实样本和虚假样本的模型D的性能步枪，但它很容易就能把两者区分开来，而随着训练的推进，虚假样本的分布逐渐与真实样本重合，D虽然也在不断更新，但已力不从心了。最后，黑线和绿线几乎重合，模型达到了最有状态，这时D的输出对于任意样本都是0.5。</p>
+<h5 id="GAN训练方法"><a href="#GAN训练方法" class="headerlink" title="GAN训练方法"></a>GAN训练方法</h5><p>贴一张原论文中的算法图：</p>
+<p><img src="/2019/09/29/dl46/dl4604.JPG" alt="GAN算法"></p>
 <ul>
-<li>True Positive（真正，TP）：将正类预测为正类数。</li>
-<li>True Negative（真负，TN）：将负类预测为负类数。</li>
-<li>False Positive（假正，FP）：将负类预测为正类数，误报（Type I error）。</li>
-<li>False Negative（假负，FN）：将正类预测为负类数，漏报（Type II error）。</li>
+<li>在噪声数据分布中随机采样，输入生成模型，得到一组假数据，记为$D(z)$。</li>
+<li>在真实数据分布中随机采样，做为真实数据，记为x。</li>
+<li>将前两步中某一步产生的数据作为判别网络的输入（因为判别网络模型的输入为两类数据，真/假），判别网络的输出值为该输入属于真实数据的概率，real为1，fake为0。</li>
+<li>然后根据得到的概率值计算损失函数。</li>
+<li>根据判别模型和生成模型的损失函数，利用反向传播算法，更新模型的参数（先更新判别式模型的参数，然后通过采样得到的噪声数据更细生成器的参数）。</li>
 </ul>
-<h5 id="2-混淆矩阵"><a href="#2-混淆矩阵" class="headerlink" title="2. 混淆矩阵"></a>2. 混淆矩阵</h5><p>混淆矩阵是对分类结果进行详细描述的一张表，主要用于比较分类结果和样本的信息。对于二分类问题，混淆矩阵如下表所示：</p>
-<p><img src="/2019/09/22/dl45/dl4501.jpg" alt="混淆矩阵"></p>
-<h5 id="3-准确率（Accuracy）"><a href="#3-准确率（Accuracy）" class="headerlink" title="3. 准确率（Accuracy）"></a>3. 准确率（Accuracy）</h5><p>对于给定的测试数据集，分类器正确分类的样本总数（包含正负样本）与原始数据集总样本数之比。<br>$$<br>Accuracy = \frac {TP+TN} {TP+TN+FN+FP}<br>$$</p>
-<blockquote>
-<p>如果正负样本不均衡，不能只用准确率做为评价指标。</p>
-</blockquote>
-<h5 id="4-精准率-查准率（Precision）"><a href="#4-精准率-查准率（Precision）" class="headerlink" title="4. 精准率/查准率（Precision）"></a>4. 精准率/查准率（Precision）</h5><p>针对预测结果而言，预测为正类的样本（真正和假正）中，真的正类的比率。<br>$$<br>Precision = \frac {TP} {TP+FP}<br>$$</p>
-<h5 id="5-召回率-查全率-（Recall）"><a href="#5-召回率-查全率-（Recall）" class="headerlink" title="5. 召回率/查全率  （Recall）"></a>5. 召回率/查全率  （Recall）</h5><p>针对样本而言，被正确判定的正实例（TP）在总的正实例中（真正和假负）的比率。<br>$$<br>Recall = \frac {TP} {TP+FN}<br>$$</p>
-<h5 id="6-F-measure（F1-Score）"><a href="#6-F-measure（F1-Score）" class="headerlink" title="6. F-measure（F1 Score）"></a>6. F-measure（F1 Score）</h5><p>一般而言，召回率高时，精准率低；精准率高时，召回率低。虽然Precision和Recall没有必然关系，但是它们通常被一起用来评估模型。F-measure就是Precision和Recall的加权调和平均数。</p>
-<p>F-measure的一般形式：<br>$$<br>F = \frac {(1+\beta^2) \times P \times R}{\beta^2 \times P +R}<br>$$<br>其中$\beta$表示查全率与查准率的权重，如果查全率的权重=查准率的权重，即查全率和查准率一样重要，那么上述公式就变成了：<br>$$<br>F1 = \frac{2 \times Recall \times Precision}{Recall+Precision}<br>$$<br>也就是我们常说的F1度量，F1 Score。</p>
-<h5 id="7-PR曲线"><a href="#7-PR曲线" class="headerlink" title="7. PR曲线"></a>7. PR曲线</h5><p>以精准率Precision作为纵轴，以召回率Recall作为横轴所画的曲线，如下图所示：</p>
-<p><img src="/2019/09/22/dl45/dl4502.JPG" alt="PR曲线"></p>
-<p>PR曲线的具体绘制步骤是：</p>
-<p>首先根据样本的置信度（confidence score）从大到小排序，这里置信度的意思是该样本是正样本的概率，比如90%的概率认为A样本是正例，10%的概率认为B样本是正例。</p>
-<p>然后选取top-N（通常是top-5）的样本，预测为正例，剩下的样本预测为反例。</p>
-<p>接着对每个样本计算Precision和Recall，就可以画出对应的曲线了。</p>
-<h6 id="AP计算"><a href="#AP计算" class="headerlink" title="AP计算"></a>AP计算</h6><p>只是根据top-5来衡量一个模型的好坏，不太好，所以就有了另外一种叫做AP的计算方法，假设N个样本中有M个正例，那么我们会得到M个recall值（1/M, 2/M, … ,M/M），对于每个recall值r，我们可以计算出对应的（r’ &gt;= r）的最大precision，然后对这M个precision值取平均，即得到最后的AP值。比如下图所示：</p>
-<p><img src="/2019/09/22/dl45/dl4503.JPG" alt="AP计算"></p>
-<h5 id="8-受试者工作特征曲线（Receiver-Operating-Characteristic-curve，ROC）"><a href="#8-受试者工作特征曲线（Receiver-Operating-Characteristic-curve，ROC）" class="headerlink" title="8. 受试者工作特征曲线（Receiver Operating Characteristic curve，ROC）"></a>8. 受试者工作特征曲线（Receiver Operating Characteristic curve，ROC）</h5><p>以假正类率（False Positive Rate，FPR）为横轴，以真正类率（True Positive Rate，TPR）为纵轴所画的曲线。</p>
-<p>假正类率：被模型判定为正类的负实例在实际的负样本中的比例。<br>$$<br>FPR = \frac{FP}{FP+TN}<br>$$<br>真正类率：被模型判定为正类的正实例在实际的正样本中的比例。<br>$$<br>TPR = \frac{TP}{TP+FN}<br>$$</p>
-<p>ROC曲线上的每个点对应的是在某个阈值（threshold）下得到的（FPR，TPR）。设定一个阈值，大于这个阈值的实例被划分为正实例，小于这个值得实例则被划分为负实例，运行模型，得出结果，计算FPR和TPR的值。更换阈值，循环操作，就得到不同阈值下的（FPR，TPR），即可绘制成ROC曲线。并且ROC曲线在测试集中的正负样本的分布变化时，能够保持不变。</p>
-<p>下图显示了一条ROC曲线：</p>
-<p><img src="/2019/09/22/dl45/dl4504.png" alt="ROC曲线"></p>
-<p>ROC曲线与FPR围成的面积（AUC）越大，说明性能越好。一般来说，如果ROC是光滑的，那么基本可以判断没有太大的overfitting。</p>
-<h5 id="9-AUC（Area-Under-Curve）"><a href="#9-AUC（Area-Under-Curve）" class="headerlink" title="9. AUC（Area Under Curve）"></a>9. AUC（Area Under Curve）</h5><p>ROC曲线的面积，在0.5到1.0之间。之所以用AUC值做为评判标准，是因为很多时候不能从ROC曲线中判别模型的好坏。AUC的值越接近1，说明模型性能越好，模型预测的准确率越高。</p>
-<h4 id="回归问题（Regression）"><a href="#回归问题（Regression）" class="headerlink" title="回归问题（Regression）"></a>回归问题（Regression）</h4><h5 id="1-平均绝对误差（Mean-Absolute-Error，MAE）"><a href="#1-平均绝对误差（Mean-Absolute-Error，MAE）" class="headerlink" title="1. 平均绝对误差（Mean Absolute Error，MAE）"></a>1. 平均绝对误差（Mean Absolute Error，MAE）</h5><p>绝对误差的平均值。</p>
-<p>公式为：<br>$$<br>MAE = \frac{1}{m} \sum_{i=1}^m \left | h(x_i)-y_i \right |<br>$$</p>
-<h5 id="2-均方误差（Mean-Square-Error，MSE）"><a href="#2-均方误差（Mean-Square-Error，MSE）" class="headerlink" title="2. 均方误差（Mean Square Error，MSE）"></a>2. 均方误差（Mean Square Error，MSE）</h5><p>真实值与预测值的差值的平方，然后求和平均。常被用作线性回归的损失函数。</p>
-<p>公式为：<br>$$<br>MSE = \frac {1}{m} \sum_{i=1}^m (y_i - \hat y_i)^2<br>$$<br>其中$y_i$表示真实值，$\hat y_i$表示预测值。</p>
-<h5 id="3-均方根误差-（Root-Mean-Square-Error，RMSE）"><a href="#3-均方根误差-（Root-Mean-Square-Error，RMSE）" class="headerlink" title="3. 均方根误差 （Root Mean Square Error，RMSE）"></a>3. 均方根误差 （Root Mean Square Error，RMSE）</h5><p>衡量观测值与真实值之间的偏差。</p>
-<p>公式为：<br>$$<br>RMSE = \sqrt {\frac {1}{m} \sum_{i=1}^m (h(x_i) - y_i)^2}<br>$$</p>
-<h5 id="4-决定系数（Coefficient-of-determination）"><a href="#4-决定系数（Coefficient-of-determination）" class="headerlink" title="4.决定系数（Coefficient of determination）"></a>4.决定系数（Coefficient of determination）</h5><p>也被称为$R^2$（R-Square）。</p>
-<p>公式为：<br>$$<br>R2= 1 - \frac{\sum_i (\hat y_i-y_i)^2}{\sum_i (\bar y_i - y_i)^2}<br>$$<br>其中，分子部分表示真实值与预测值的平方差之和，类似于均方差MSE；分母部分表示真实值与均值的平方差之和，类似于方差Var。</p>
-<p>R-square的取值范围为[0,1]：</p>
-<p>如果结果是0，说明模型拟合效果很差；</p>
-<p>如果结果是1，说明模型无错误。</p>
-<p>一般来说，R-Square越大，表示模型拟合效果越好。</p>
+<h5 id="GAN优缺点-（来自lan-Goodfellow在Quora上的回答）"><a href="#GAN优缺点-（来自lan-Goodfellow在Quora上的回答）" class="headerlink" title="GAN优缺点 （来自lan Goodfellow在Quora上的回答）"></a>GAN优缺点 （来自lan Goodfellow在Quora上的回答）</h5><h6 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h6><ul>
+<li>根据实际的结果，它们看上去可以比其它模型产生了更好的样本（图像更锐利、清晰）。</li>
+<li>生成对抗式网络框架能训练任何一种生成器网络（理论上-实践中，用 REINFORCE 来训练带有离散输出的生成网络非常困难）。大部分其他的框架需要该生成器网络有一些特定的函数形式，比如输出层是高斯的。重要的是所有其他的框架需要生成器网络遍布非零质量（non-zero mass）。</li>
+<li>生成对抗式网络能学习可以仅在与数据接近的细流形（thin manifold）上生成点。</li>
+<li>不需要设计遵循任何种类的因式分解的模型，任何生成器网络和任何鉴别器都会有用。</li>
+<li>无需利用马尔科夫链反复采样，无需在学习过程中进行推断（Inference），回避了近似计算棘手的概率的难题。</li>
+<li>与PixelRNN相比，生成一个样本的运行时间更小。GAN 每次能产生一个样本，而 PixelRNN 需要一次产生一个像素来生成样本。 </li>
+<li>与VAE 相比，它没有变化的下限。如果鉴别器网络能完美适合，那么这个生成器网络会完美地恢复训练分布。换句话说，各种对抗式生成网络会渐进一致（asymptotically consistent），而 VAE 有一定偏置。 </li>
+<li>与深度玻尔兹曼机相比，既没有一个变化的下限，也没有棘手的分区函数。它的样本可以一次性生成，而不是通过反复应用马尔可夫链运算器（Markov chain operator）。 </li>
+<li>与 GSN 相比，它的样本可以一次生成，而不是通过反复应用马尔可夫链运算器。 </li>
+<li>与NICE 和 Real NVE 相比，在 latent code 的大小上没有限制。</li>
+</ul>
+<h6 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h6><ul>
+<li>解决不收敛（non-convergence）的问题。<br>目前面临的基本问题是：所有的理论都认为 GAN 应该在纳什均衡（Nash equilibrium）上有卓越的表现，但梯度下降只有在凸函数的情况下才能保证实现纳什均衡。当博弈双方都由神经网络表示时，在没有实际达到均衡的情况下，让它们永远保持对自己策略的调整是可能的。</li>
+<li>难以训练：崩溃问题（collapse problem）<br>GAN模型被定义为极小极大问题，没有损失函数，在训练过程中很难区分是否正在取得进展。GAN的学习过程可能发生崩溃问题（collapse problem），生成器开始退化，总是生成同样的样本点，无法继续学习。当生成模型崩溃时，判别模型也会对相似的样本点指向相似的方向，训练无法继续。</li>
+<li>无需预先建模，模型过于自由不可控。<br>与其他生成式模型相比，GAN这种竞争的方式不再要求一个假设的数据分布，即不需要formulate p(x)，而是使用一种分布直接进行采样sampling，从而真正达到理论上可以完全逼近真实数据，这也是GAN最大的优势。然而，这种不需要预先建模的方法缺点是太过自由了，对于较大的图片，较多的 pixel的情形，基于简单 GAN 的方式就不太可控了(超高维)。在GAN[Goodfellow Ian, Pouget-Abadie J] 中，每次学习参数的更新过程，被设为D更新k回，G才更新1回，也是出于类似的考虑。</li>
+</ul>
+<h5 id="GAN变种"><a href="#GAN变种" class="headerlink" title="GAN变种"></a>GAN变种</h5><p>GAN问世以后，得到了广泛研究，国外有大神整理了一个GAN zoo，里面是关于GAN的各种论文，有兴趣的可以看看：</p>
+<p><a href="https://github.com/hindupuravinash/the-gan-zoo" target="_blank" rel="noopener">https://github.com/hindupuravinash/the-gan-zoo</a></p>
 
             </div>
             <hr/>
@@ -635,9 +641,9 @@
             <br/>
             <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
                   property="dct:title" rel="dct:type">
-                    《机器学习模型中的一些评估指标（四十五）》
+                    《这！就是对抗生成网络（四十六）》
                 </span> 由
-            <a xmlns:cc="http://creativecommons.org/ns#" href="/2019/09/22/dl45/" property="cc:attributionName"
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2019/09/29/dl46/" property="cc:attributionName"
                rel="cc:attributionURL">
                 星辰白衣
             </a> 采用
@@ -678,7 +684,7 @@
         repo: 'KnightChen2019.github.io',
         owner: 'KnightChen2019',
         admin: "KnightChen2019",
-        id: '2019-09-22T23-48-15',
+        id: '2019-09-29T20-23-13',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -699,9 +705,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2019/09/29/dl46/">
                     <div class="card-image">
@@ -719,9 +726,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-29
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-29
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -734,6 +741,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -752,31 +760,31 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/09/15/dl44/">
+                <a href="/2019/09/22/dl45/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="这！就是深度学习之循环神经网络（四十四）">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="机器学习模型中的一些评估指标（四十五）">
                         
-                        <span class="card-title">这！就是深度学习之循环神经网络（四十四）</span>
+                        <span class="card-title">机器学习模型中的一些评估指标（四十五）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            今宵正对初弦月，傍水驿、深舣蒹葭。
+                            人闲桂花落，夜静春山空。
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-15
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-22
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/深度学习/" class="post-category" target="_blank">
-                                    深度学习
+                            <a href="/categories/模型评估/" class="post-category" target="_blank">
+                                    模型评估
                                 </a>
                             
                             
@@ -786,12 +794,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/RNN/" target="_blank">
-                        <span class="chip bg-color">RNN</span>
-                    </a>
-                    
-                    <a href="/tags/LSTM/" target="_blank">
-                        <span class="chip bg-color">LSTM</span>
+                    <a href="/tags/模型评估指标/" target="_blank">
+                        <span class="chip bg-color">模型评估指标</span>
                     </a>
                     
                 </div>
