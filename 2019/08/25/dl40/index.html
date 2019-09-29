@@ -1,0 +1,1068 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="这！就是深度学习之反向传播算法(四十), 星辰白衣">
+    <meta name="description" content="前面的第二十七和二十八篇简单的介绍了一下神经网络，不过对于其中的BP算法，还是有点不太理解，所以这次举两个例子，期望加深理解。
+反向传播（Back Propagation）算法当我们使用前馈神经网络接受输入x并产生输出$\hat {y}$时">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>这！就是深度学习之反向传播算法(四十) | 星辰白衣</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">星辰白衣</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">星辰白衣</div>
+        <div class="logo-desc">
+            
+            放弃很容易，但坚持一定很酷！
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        这！就是深度学习之反向传播算法(四十)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/BP/" target="_blank">
+                                <span class="chip bg-color">BP</span>
+                            </a>
+                        
+                            <a href="/tags/DFN/" target="_blank">
+                                <span class="chip bg-color">DFN</span>
+                            </a>
+                        
+                            <a href="/tags/MLP/" target="_blank">
+                                <span class="chip bg-color">MLP</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/深度学习/" class="post-category" target="_blank">
+                                深度学习
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-08-25
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        3.4k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        17 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>前面的第二十七和二十八篇简单的介绍了一下神经网络，不过对于其中的BP算法，还是有点不太理解，所以这次举两个例子，期望加深理解。</p>
+<h4 id="反向传播（Back-Propagation）算法"><a href="#反向传播（Back-Propagation）算法" class="headerlink" title="反向传播（Back Propagation）算法"></a>反向传播（Back Propagation）算法</h4><p>当我们使用前馈神经网络接受输入x并产生输出$\hat {y}$时，信息通过网络向前流动。输入x提供的初始信息，然后传播到每一层的隐藏单元，最终产生输出$\hat {y}$，这称之为前向传播（forward propagation）。在训练过程中，前向传播可以持续向前直到它产生一个标量代价函数$J( \theta )$。反向传播（back propagation）算法，简称BP算法，允许来自代价函数的信息通过网络向后流动，以便计算梯度。BP算法基于梯度下降的策略，以目标为负梯度方向对参数进行调整。</p>
+<h4 id="抽象的例子"><a href="#抽象的例子" class="headerlink" title="抽象的例子"></a>抽象的例子</h4><p>假设有下图所示的神经网络<br><img src="/2019/08/25/dl40/dl4001.jpg" alt="反向传播"></p>
+<p>假设X为$N*m$的矩阵，其中N为样本的个数，m为特征数。W为权重的矩阵，f为作<br>用在h上的激活函数，$\tilde b$为$b_1^T$后沿着行方向的扩展，那么根据前向传播算法，可得：</p>
+<p>$out =Z_LW_{L+1}+\tilde b_{L+1}$<br>我们假设当前的损失函数为J，因为反向传播算法的目的是要求神经网络模型的输出相对于各个参数的梯度值，即求$\frac {\partial J}{\partial out}$.</p>
+<p>我们把上面的假设稍微具化一下，令：<br>$$Z_L=\begin{pmatrix}<br>z_{11} &amp; z_{12} &amp; z_{13} \\<br>z_{21} &amp; z_{22} &amp; z_{23}<br>\end{pmatrix},<br>W_{L+1}=\begin{pmatrix}<br>w_{11} &amp; w_{12} \\<br>w_{21} &amp; w_{22} \\<br>w_{31} &amp; w_{32}<br>\end{pmatrix},<br>\tilde b_{L+1}=\begin{pmatrix}<br>b_{1} &amp; b_{1} \\<br>b_{2} &amp; b_{2}<br>\end{pmatrix}$$<br>$$out=\begin{pmatrix}<br>o_{11} &amp; o_{12} \\<br>o_{21} &amp; o_{22}<br>\end{pmatrix}$$<br>则：<br>$$Z_L \times W_{L+1}=\begin{pmatrix}<br>z_{11}w_{11}+z_{12}w_{21}+z_{13}w_{31} &amp; z_{11}w_{12}+z_{12}w_{22}+z_{13}w_{32} \\<br>z_{21}w_{11}+z_{22}w_{21}+z_{23}w_{31} &amp; z_{21}w_{12}+z_{22}w_{22}+z_{23}w_{32}<br>\end{pmatrix}$$<br>所以：<br>$$o_{11} = z_{11}w_{11}+z_{12}w_{21}+z_{13}w_{31} +b_1$$<br>$$o_{12} = z_{11}w_{12}+z_{12}w_{22}+z_{13}w_{32} +b_2$$<br>$$o_{21} = z_{21}w_{11}+z_{22}w_{21}+z_{23}w_{31} +b_1$$<br>$$o_{22} = z_{21}w_{12}+z_{22}w_{22}+z_{23}w_{32} +b_2$$</p>
+<h5 id="对w的参数求偏导"><a href="#对w的参数求偏导" class="headerlink" title="对w的参数求偏导"></a>对w的参数求偏导</h5><p>根据链式求导法则（J -&gt; o -&gt; w）有：<br>$$\frac {\partial J}{\partial w_{11}}=\frac {\partial J} {\partial o_{11}}z_{11} + \frac {\partial J} {\partial o_{21}}z_{21}$$<br>$$\frac {\partial J}{\partial w_{12}}=\frac {\partial J} {\partial o_{12}}z_{11} + \frac {\partial J} {\partial o_{22}}z_{21}$$<br>$$\frac {\partial J}{\partial w_{21}}=\frac {\partial J} {\partial o_{11}}z_{12} + \frac {\partial J} {\partial o_{21}}z_{22}$$<br>$$\frac {\partial J}{\partial w_{22}}=\frac {\partial J} {\partial o_{12}}z_{12} + \frac {\partial J} {\partial o_{22}}z_{22}$$<br>$$\frac {\partial J}{\partial w_{31}}=\frac {\partial J} {\partial o_{11}}z_{13} + \frac {\partial J} {\partial o_{21}}z_{23}$$<br>$$\frac {\partial J}{\partial w_{32}}=\frac {\partial J} {\partial o_{11}}z_{13} + \frac {\partial J} {\partial o_{22}}z_{23}$$<br>用矩阵表示就是：<br>$$\begin{pmatrix}<br>\frac {\partial J}{\partial w_{11}} &amp; \frac {\partial J}{\partial w_{12}} \\<br>\frac {\partial J}{\partial w_{21}} &amp; \frac {\partial J}{\partial w_{22}} \\<br>\frac {\partial J}{\partial w_{31}} &amp; \frac {\partial J}{\partial w_{32}}<br>\end{pmatrix} =<br>\begin{pmatrix}<br>z_{11} &amp; z_{21} \\<br>z_{21} &amp; z_{22} \\<br>z_{31} &amp; z_{32}<br>\end{pmatrix}<br>\begin{pmatrix}<br>\frac {\partial J} {\partial o_{11}} &amp; \frac {\partial J} {\partial o_{12}} \\<br>\frac {\partial J} {\partial o_{21}} &amp; \frac {\partial J} {\partial o_{22}}<br>\end{pmatrix}$$<br>最左边的矩阵也叫雅克比（jacobian）矩阵。所以：<br>$$\frac {\partial J} {\partial W_{L+1}} = Z_L^T \frac {\partial J} {\partial out}$$</p>
+<h5 id="对bias参数b求偏导"><a href="#对bias参数b求偏导" class="headerlink" title="对bias参数b求偏导"></a>对bias参数b求偏导</h5><p>$$\frac {\partial J} {\partial b_1} = \frac {\partial J} {\partial o_{11}} + \frac {\partial J} {\partial o_{21}}$$<br>$$\frac {\partial J} {\partial b_2} = \frac {\partial J} {\partial o_{12}} + \frac {\partial J} {\partial o_{22}}$$<br>用矩阵表示：<br>$$(\frac {\partial J} {\partial b})^T = (\frac {\partial J} {\partial b_1} \   \frac {\partial J} {\partial b_2}) =(\frac {\partial J} {\partial o_{11}} + \frac {\partial J} {\partial o_{21}} \   \frac {\partial J} {\partial o_{12}} + \frac {\partial J} {\partial o_{22}})$$<br>也就是将$\frac {\partial J} {\partial out}$的每一行都加起来。</p>
+<p>上面的例子中，我们求的是$W_{L+1}的梯度$，既然是反向传播，我们接下来就要求$W_L$的梯度，根据上面的公式，我们可以得到：<br>$$\frac {\partial J} {\partial W_L} = Z_{L-1}^T \frac {\partial J} {\partial h_L}$$<br>那么现在的问题是怎么求$\frac {\partial J} {\partial h_L}$呢？通过图片可以看到$h_L$经过激活函数的变换到了$Z_L$, 那么同样的根据链式求导法则，我们先求出$Z_L$的梯度，再求出激活函数$f_L$的梯度，也就求出了$h_L$的梯度，即$\frac {\partial J} {\partial h_L}$</p>
+<h5 id="对Z求偏导"><a href="#对Z求偏导" class="headerlink" title="对Z求偏导"></a>对Z求偏导</h5><p>$$\frac {\partial J}{\partial z_{11}}=\frac {\partial J} {\partial o_{11}}w_{11} + \frac {\partial J} {\partial o_{12}}w_{12}$$<br>$$\frac {\partial J}{\partial z_{12}}=\frac {\partial J} {\partial o_{11}}w_{21} + \frac {\partial J} {\partial o_{12}}w_{22}$$<br>$$\frac {\partial J}{\partial z_{13}}=\frac {\partial J} {\partial o_{11}}w_{31} + \frac {\partial J} {\partial o_{12}}w_{32}$$<br>$$\frac {\partial J}{\partial z_{21}}=\frac {\partial J} {\partial o_{21}}w_{11} + \frac {\partial J} {\partial o_{12}}w_{12}$$<br>$$\frac {\partial J}{\partial z_{22}}=\frac {\partial J} {\partial o_{21}}w_{21} + \frac {\partial J} {\partial o_{22}}w_{22}$$<br>$$\frac {\partial J}{\partial z_{23}}=\frac {\partial J} {\partial o_{21}}w_{31} + \frac {\partial J} {\partial o_{22}}w_{32}$$<br>用矩阵表示：<br>$$\begin{pmatrix}<br>\frac {\partial J}{\partial z_{11}} &amp; \frac {\partial J}{\partial z_{12}} &amp; \frac {\partial J}{\partial z_{13}} \\<br>\frac {\partial J}{\partial z_{21}} &amp; \frac {\partial J}{\partial z_{22}}&amp; \frac {\partial J}{\partial z_{23}}<br>\end{pmatrix} =<br>\begin{pmatrix}<br>\frac {\partial J} {\partial o_{11}} &amp; \frac {\partial J} {\partial o_{12}} \\<br>\frac {\partial J} {\partial o_{21}} &amp; \frac {\partial J} {\partial o_{22}}<br>\end{pmatrix}<br>\begin{pmatrix}<br>w_{11} &amp; w_{12} &amp; w_{31} \\<br>w_{21} &amp; w_{22} &amp; w_{33}<br>\end{pmatrix}$$<br>即：<br>$$\frac {\partial J} {\partial Z_L} = \frac {\partial J} {\partial out} W_{L+1}^T $$</p>
+<h5 id="对激活函数求偏导"><a href="#对激活函数求偏导" class="headerlink" title="对激活函数求偏导"></a>对激活函数求偏导</h5><p>因为$f_L$是作用于$h_L$的激活函数，所以$Z_L = f_L (h_L)$</p>
+<h6 id="1-激活函数为sigmoid"><a href="#1-激活函数为sigmoid" class="headerlink" title="1 激活函数为sigmoid"></a>1 激活函数为sigmoid</h6><p>$$Z_L = \frac {1} {1+e^{-h_L}}$$<br>复合函数求偏导：<br>$$\frac {\partial J} {\partial h_L} = \frac {\partial J} {\partial Z_L} \frac {\partial Z_L} {\partial h_L}$$<br>$$=\frac {\partial J} {\partial Z_L} \frac {e^{-h_L}} {(1+e^{-h_L})^2}$$<br>$$=\frac {\partial J} {\partial Z_L} \frac {1} {(1+e^{-h_L})}\frac {e^{-h_L}} {(1+e^{-h_L})}$$<br>$$=\frac {\partial J} {\partial Z_L} Z_L (1-Z_L)$$</p>
+<h6 id="2-激活函数为sigmoid"><a href="#2-激活函数为sigmoid" class="headerlink" title="2 激活函数为sigmoid"></a>2 激活函数为sigmoid</h6><p>$$Z_L = \frac {e^{h_L} - e^{-h_L}} {e^{h_L} + e^{-h_L}}$$<br>$$\frac {\partial J} {\partial h_L} = \frac {\partial J} {\partial Z_L} \frac {\partial Z_L} {\partial h_L}$$<br>因为$\frac {\partial Z_L} {\partial h_L}$求导比较复杂，所以单拎出来说。<br>令$a=e^{h_L}, b=e^{-h_L}$<br>根据复合函数求导公式：<br>$$(\frac {u} {v})’ = \frac {u’v-uv’} {v^2}$$<br>再令$u=(a-b), v=(a+b)$, 则有：<br>$$\frac {\partial J} {\partial h_L} = \left (\frac {a-b} {a+b} \right )’$$<br>$$=\frac {(a-b)’(a+b)-(a-b)(a+b)’} {(a+b)^2}$$<br>而：<br>$$(a-b)’=(e^{h_L} - e^{-h_L})’=e^{h_L}-(-1)e^{-h_L}=e^{h_L}+e^{-h_L}=a+b$$<br>$$(a+b)’=(e^{h_L} +e^{-h_L})’=e^{h_L}+(-1)e^{-h_L}=e^{h_L}-e^{-h_L}=a-b$$<br>带回原式可得：<br>$$\frac {(a-b)’(a+b)-(a-b)(a+b)’} {(a+b)^2}$$<br>$$=\frac {(a+b)^2-(a-b)^2} {(a+b)^2}$$<br>$$=1-\frac {(a-b)^2} {(a+b)^2}$$<br>$$=1-\left (\frac {a-b} {a+b} \right )^2$$<br>$$=1-\left (\frac {e^{h_L} - e^{-h_L}} {e^{h_L} + e^{-h_L}} \right )^2$$<br>所以<br>$$\frac {\partial J} {\partial h_L} = \frac {\partial J} {\partial Z_L} (1-\left (\frac {e^{h_L} - e^{-h_L}} {e^{h_L} + e^{-h_L}} \right )^2)$$<br>$$= \frac {\partial J} {\partial Z_L} (1-Z_L^2)$$</p>
+<h6 id="3-激活函数为ReLU"><a href="#3-激活函数为ReLU" class="headerlink" title="3 激活函数为ReLU"></a>3 激活函数为ReLU</h6><p>$$Z_L=ReLU(h_L)=\left\{\begin{matrix}<br>0,\ h_L \leq 0 \\<br>h_L,\ h_L &gt;0<br>\end{matrix}\right.$$<br>对$h_L$求偏导可得：<br>$$\frac {\partial J} {\partial h_L} = \frac {\partial J} {\partial Z_L} \frac {\partial Z_L} {\partial h_L}=\left\{\begin{matrix}<br>0,\ h_L \leq 0 \\<br>\frac {\partial J} {\partial Z_L},\ h_L &gt;0<br>\end{matrix}\right.$$</p>
+<h4 id="形象的例子"><a href="#形象的例子" class="headerlink" title="形象的例子"></a>形象的例子</h4><p>再举个形象点的例子，如下图：<br><img src="/2019/08/25/dl40/dl4002.jpg" alt="反向传播"><br>权重和偏执已经在图中标出来了，我们假设$x_1=1,x_2=4,x_3=5$, 最后的真实结果$t_1=0.1,t_2=0.05$</p>
+<h5 id="1-输入层到隐藏层"><a href="#1-输入层到隐藏层" class="headerlink" title="1 输入层到隐藏层"></a>1 输入层到隐藏层</h5><p>$$z_{h_1}=w_1x_1+w_3x_2+w_5x_3+b_1$$<br>$$z_{h_2}=w_2x_1+w_4x_2+w_6x_3+b_1$$<br>$$h1 = \sigma(z_{h_1})$$<br>$$h2 = \sigma(z_{h_2})$$</p>
+<h5 id="2-隐藏层到输出层"><a href="#2-隐藏层到输出层" class="headerlink" title="2 隐藏层到输出层"></a>2 隐藏层到输出层</h5><p>$$z_{o_1}=w_7h_1+w_9h_2+b_2$$<br>$$z_{o_2}=w_8h_1+w_10h_2+b_2$$<br>$$o1 = \sigma(z_{o_1})$$<br>$$o2 = \sigma(z_{o_2})$$</p>
+<h5 id="3-计算hidden-layer-和-output-layer的值"><a href="#3-计算hidden-layer-和-output-layer的值" class="headerlink" title="3 计算hidden layer 和 output layer的值"></a>3 计算hidden layer 和 output layer的值</h5><p>这里的激活函数用的是sigmoid。<br>$$z_{h_1}=w_1x_1+w_3x_2+w_5x_3+b_1=0.1 \times 1 + 0.3 \times 4 + 0.5 \times 5 + 0.5 = 4.3 $$<br>$$h1 = \sigma(z_{h_1}) = \sigma (4.3) = 0.9866$$<br>$$z_{h_2}=w_2x_1+w_4x_2+w_6x_3+b_1=0.2 \times 1 + 0.4 \times 4 + 0.6 \times 5 + 0.5 = 5.3$$<br>$$h2 = \sigma(z_{h_2}) = \sigma (5.3) = 0.9950$$<br>$$z_{o_1}=w_7h_1+w_9h_2+b_2 = 0.7 \times 0.9866 + 0.9 \times 0.9950 + 0.5 = 2.0862$$<br>$$o1 = \sigma(z_{o_1}) = \sigma (2.0862) = 0.8896$$<br>$$z_{o_1}=w_7h_1+w_9h_2+b_2 = 0.8 \times 0.9866 + 0.1 \times 0.9950 + 0.5 = 1.3888$$<br>$$o1 = \sigma(z_{o_1}) = \sigma (1.3888) = 0.8004$$</p>
+<h5 id="4-用计算误差"><a href="#4-用计算误差" class="headerlink" title="4 用计算误差"></a>4 用计算误差</h5><p>这里用平方和来计算损失值，记做E。<br>$$E =\frac{1}{2} \left (\ (o_1 - t_1)^2 +(o_2 - t_2)^2 \right )$$<br>所以有：<br>$$\frac {dE} {d_{o_1}} = o_1 - t_1$$<br>$$\frac {dE} {d_{o_2}} = o_2 - t_2$$</p>
+<h5 id="5-反向传播之倒一层"><a href="#5-反向传播之倒一层" class="headerlink" title="5 反向传播之倒一层"></a>5 反向传播之倒一层</h5><p>因为<br>$$z_{o_1}=w_7h_1+w_9h_2+b_2$$<br>$$z_{o_2}=w_8h_1+w_10h_2+b_2$$<br>所以<br>$\frac {dz_{o_1}} {dw_7}=h_1,\frac {dz_{o_2}} {dw_8}=h_1,\frac {dz_{o_1}} {dw_9}=h_2,\frac {dz_{o_2}} {dw_10}=h_2,\frac {dz_{o_1}} {db_2}=1,\frac {dz_{o_2}} {db_2}=1$<br>根据链式求导法则：<br>$\frac {dE} {dw_7}=\frac {dE} {do_1} \frac {do_1} {dz_{o_1}} \frac {dz_{o_1}} {dw_7} = (o_1 - t_1)(o_1(1-o_1))h_1$<br>$=(0.8896-0.1)(0.8896(1-0.8896))0.9866=0.0765$<br>同理可得：<br>$\frac {dE} {dw_8}=\frac {dE} {do_2} \frac {do_2} {dz_{o_2}} \frac {dz_{o_2}} {dw_8} =0.7504 \times 0.1598 \times 0.9866 = 0.1183$<br>$\frac {dE} {dw_9}=\frac {dE} {do_1} \frac {do_1} {dz_{o_1}} \frac {dz_{o_1}} {dw_9} =0.7896 \times 0.0983 \times 0.9950 = 0.0772$<br>$\frac {dE} {dw_10}=\frac {dE} {do_2} \frac {do_2} {dz_{o_2}} \frac {dz_{o_2}} {dw_10} =0.7504 \times 0.1598 \times 0.9950 = 0.1193$<br>$\frac {dE} {db_2}=\frac {dE} {do_1} \frac {do_1} {dz_{o_1}} \frac {dz_{o_1}} {db_2} + \frac {dE} {do_2} \frac {do_2} {dz_{o_2}} \frac {dz_{o_2}} {db_2}$<br>$=0.7896 \times 0.0983 \times 1 + 0.7504 \times 0.1598 \times 1 =0.1975$</p>
+<h5 id="6-反向传播之倒二层"><a href="#6-反向传播之倒二层" class="headerlink" title="6 反向传播之倒二层"></a>6 反向传播之倒二层</h5><p>上面已经求出了$\frac {dE} {dw_7},\frac {dE} {dw_8},\frac {dE} {dw_9},\frac {dE} {dw_10},\frac {dE} {db_2}$,我们接着求 $\frac {dE} {dw_1},\frac {dE} {dw_2},\frac {dE} {dw_3},\frac {dE} {dw_4},\frac {dE} {dw_5},\frac {dE} {dw_6},\frac {dE} {db_1}$<br>根据链式求导法则：<br>$\frac {dE} {dw_1} = \frac {dE} {dh_1} \frac {dh_1} {dz_{h_1}} \frac {dz_{h_1}} {dw_1}$<br>在对$h_1$求导的时候，因为$h_1$同时作用于$o_1$和$o_2$，所以<br>$\frac {dE} {dh_1} =\frac {dE} {do_1} \frac {do_1} {dz_{o_1}} \frac {dz_{o_1}} {dh_1} + \frac {dE} {do_2} \frac {do_2} {dz_{o_2}} \frac {dz_{o_2}} {dh_1}$<br>$=0.7896 \times 0.0983 \times 0.7 + 0.7504 \times 0.1598 \times 0.8 = 0.1502$<br>从而求得：<br>$\frac {dE} {dw_1} = 0.1502 \times 0.0132 \times 1 = 0.0020$<br>同理求得：<br>$\frac {dE} {dw_3} = \frac {dE} {dh_1} \frac {dh_1} {dz_{h_1}} \frac {dz_{h_1}} {dw_3} =0.1502 \times 0.0132 \times 4 = 0.0079$<br>$\frac {dE} {dw_5} = \frac {dE} {dh_1} \frac {dh_1} {dz_{h_1}} \frac {dz_{h_1}} {dw_5} =0.1502 \times 0.0132 \times 5 = 0.0099$<br>接着求$h_2$节点对应的权重值：<br>$\frac {dE} {dw_2} = \frac {dE} {dh_2} \frac {dh_2} {dz_{h_2}} \frac {dz_{h_2}} {dw_2}$<br>而：<br>$\frac {dE} {dh_2} =\frac {dE} {do_1} \frac {do_1} {dz_{o_1}} \frac {dz_{o_1}} {dh_2} + \frac {dE} {do_2} \frac {do_2} {dz_{o_2}} \frac {dz_{o_2}} {dh_2}$<br>$=0.7896 \times 0.0983 \times 0.9 + 0.7504 \times 0.1598 \times 0.1 = 0.0818$<br>从而：<br>$\frac {dE} {dw_2} =0.0818 \times 0.0049\times 1 = 0.0004$</p>
+<p>$\frac {dE} {dw_4}=\frac {dE} {dh_2} \frac {dh_2} {dz_{h_2}} \frac {dz_{h_2}} {dw_4} =0.0818 \times 0.0049 \times 4 = 0.0016$<br>$\frac {dE} {dw_6}=\frac {dE} {dh_2} \frac {dh_2} {dz_{h_2}} \frac {dz_{h_2}} {dw_6} =0.0818 \times 0.0049 \times 5 = 0.0020$</p>
+<p>$\frac {dE} {db_1}=\frac {dE} {do_1} \frac {do_1} {dz_{o_1}} \frac {dz_{o_1}} {dh_1} \frac {dh_1} {dz_{h_1}} \frac {dz_{h_1}} {db_1} + \frac {dE} {do_2} \frac {do_2} {dz_{o_2}} \frac {dz_{o_2}} {dh_2} \frac {dh_2} {dz_{h_2}} \frac {dz_{2_1}} {db_1}$<br>$= 0.7896 \times 0.9983 \times 0.7 \times 0.0132 \times 1+ \times 0.7504 \times 0.1598 \times 0.1 \times 0.0049 \times 1= 0.0008$</p>
+<p>然后我们开始利用梯度下降法求解，令学习率$\alpha=0.01$, 则有：<br>$w_1:=w_1-\alpha \frac {dE} {dw_1} = 0.1 - 0.01 \times 0.0020 = 0.1000$<br>$w_2:=w_2-\alpha \frac {dE} {dw_2} = 0.2 - 0.01 \times 0.0004 = 0.2000$<br>$w_3:=w_3-\alpha \frac {dE} {dw_3} = 0.3 - 0.01 \times 0.0079 = 0.2999$<br>$w_4:=w_4-\alpha \frac {dE} {dw_4} = 0.4 - 0.01 \times 0.0016 = 0.4000$<br>$w_5:=w_5-\alpha \frac {dE} {dw_5} = 0.5 - 0.01 \times 0.0099 = 0.4999$<br>$w_6:=w_6-\alpha \frac {dE} {dw_6} = 0.6 - 0.01 \times 0.0020 = 0.6000$<br>$w_7:=w_7-\alpha \frac {dE} {dw_7} = 0.7 - 0.01 \times 0.0765 = 0.6992$<br>$w_8:=w_8-\alpha \frac {dE} {dw_8} = 0.8 - 0.01 \times 0.1183 = 0.7988$<br>$w_9:=w_9-\alpha \frac {dE} {dw_9} = 0.9 - 0.01 \times 0.0772 = 0.8992$<br>$w_10:=w_10-\alpha \frac {dE} {dw_10} = 0.1 - 0.01 \times 0.1193 = 0.0988$<br>$b_1:=b_1-\alpha \frac {dE} {db_1} = 0.1 - 0.01 \times 0.0008 = 0.0500$<br>$b_1:=b_2-\alpha \frac {dE} {db_2} = 0.1 - 0.01 \times 0.1975 = 0.4980$</p>
+<p>然后执行N次，直到找到下山的路，也就是误差降到最小值。</p>
+<h5 id="7-Python实现上面的代码"><a href="#7-Python实现上面的代码" class="headerlink" title="7 Python实现上面的代码"></a>7 Python实现上面的代码</h5><p><img src="/2019/08/25/dl40/dl4006.jpg" alt="Python实现BP"><br>可以看到大约1500次左右，已经收敛到最小误差了。</p>
+<h4 id="激活函数"><a href="#激活函数" class="headerlink" title="激活函数"></a>激活函数</h4><p>这部分，主要说几个常用的激活函数。</p>
+<h6 id="1-sigmoid"><a href="#1-sigmoid" class="headerlink" title="1 sigmoid"></a>1 sigmoid</h6><p><img src="/2019/08/25/dl40/dl4003.jpg" alt="sigmoid"><br>优点：<br>1 它能够把输入的连续实值变换为0和1之间的输出，特别的，如果是非常大的负数，那么输出就是0；如果是非常大的正数，输出就是1.<br>缺点：<br>1 在深度神经网络中梯度反向传递时导致梯度爆炸和梯度消失，其中梯度爆炸发生的概率非常小，而梯度消失发生的概率比较大。</p>
+<h6 id="2-tanh"><a href="#2-tanh" class="headerlink" title="2 tanh"></a>2 tanh</h6><p><img src="/2019/08/25/dl40/dl4004.jpg" alt="tanh"><br>优点：<br>1 它解决了Sigmoid函数的不是zero-centered输出问题。<br>2 它的导数包含了原函数的值, 所以多次求导的时候, 只需要预先算一次, 后面可以重复利用。<br>缺点：<br>1 梯度消失（gradient vanishing）的问题和幂运算的问题仍然存在。</p>
+<h6 id="3-ReLU"><a href="#3-ReLU" class="headerlink" title="3 ReLU"></a>3 ReLU</h6><p><img src="/2019/08/25/dl40/dl4005.jpg" alt="ReLU"><br>优点：<br>1 解决了gradient vanishing问题 (在正区间)<br>2 计算速度非常快，只需要判断输入是否大于<br>3 收敛速度远快于sigmoid和tanh<br>缺点：<br>1 ReLU的输出不是zero-centered<br>2 Dead ReLU Problem，指的是某些神经元可能永远不会被激活，导致相应的参数永远不能被更新。</p>
+<h6 id="4-Softmax"><a href="#4-Softmax" class="headerlink" title="4 Softmax"></a>4 Softmax</h6><p>公式为：<br>$$\sigma (z)_j= \frac {e^{z_j}} {\sum_{k=1}^K e^{z_k}}$$<br>将K维向量z, 映射到一个新的K维向量σ(z)上, 每个元素的值都∈(0,1),且加起来等于1, 且映射前后元素间的相对大小保持不变.<br>$\sigma (z)_j$表示新向量的第 j 个元素, $z_j$表示原向量的第 j 个元素. </p>
+<p>一般与交叉熵损失函数搭配, 用于二分类, 多分类。</p>
+<h6 id="5-Softplus"><a href="#5-Softplus" class="headerlink" title="5 Softplus"></a>5 Softplus</h6><p>公式为：<br>$$\zeta = log(1+e^x)$$<br>平滑版的ReLU函数，用的较少。</p>
+<h6 id="6-Maxout"><a href="#6-Maxout" class="headerlink" title="6 Maxout"></a>6 Maxout</h6><p>公式为：<br>$$h_i(x)= \underset {j \in [1,k]}{max} z_{ij}$$<br>$$z_{ij}=x^TW_{…ij}+b_{ij}$$<br>比如说：<br>$$z_1=w_1X+b_1$$<br>$$z_2=w_2X+b_2$$<br>$$z_3=w_3X+b_3$$<br>$$out=max(z_1, z_2, z_3)$$<br>采用此种激活函数，计算参数会造成k倍增加。</p>
+
+            </div>
+            <hr/>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">愿意打赏一杯咖啡吗？</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.JPG" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.JPG" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        <p class="reprint-tip">
+            <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;
+            <span>转载规则</span>
+        </p>
+        
+            <div class="center-align">
+                <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                    <img alt=""
+                         style="border-width:0"
+                         src="https://i.creativecommons.org/l/by/4.0/88x31.png"/>
+                </a>
+            </div>
+            <br/>
+            <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+                  property="dct:title" rel="dct:type">
+                    《这！就是深度学习之反向传播算法(四十)》
+                </span> 由
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2019/08/25/dl40/" property="cc:attributionName"
+               rel="cc:attributionURL">
+                星辰白衣
+            </a> 采用
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                知识共享署名 4.0 国际许可协议
+            </a>进行许可。
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'a7fc8ea5ba27a39c7d59',
+        clientSecret: '86776f04622f7535a21be202a0374fe9fae8faac',
+        repo: 'KnightChen2019.github.io',
+        owner: 'KnightChen2019',
+        admin: "KnightChen2019",
+        id: '2019-08-25T13-22-06',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2019/08/25/sort/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="一些排序算法">
+                        
+                        <span class="card-title">一些排序算法</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            冲天香阵透长安，满城尽带黄金甲。
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-25
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/算法/" class="post-category" target="_blank">
+                                    算法
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/排序/" target="_blank">
+                        <span class="chip bg-color">排序</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/08/25/dl39/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="这！就是深度学习之机器学习基础(三十九)">
+                        
+                        <span class="card-title">这！就是深度学习之机器学习基础(三十九)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            初听不识曲中意，再听已是曲中人。
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-25
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/机器学习/" class="post-category" target="_blank">
+                                    机器学习
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/线性回归/" target="_blank">
+                        <span class="chip bg-color">线性回归</span>
+                    </a>
+                    
+                    <a href="/tags/逻辑回归/" target="_blank">
+                        <span class="chip bg-color">逻辑回归</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+
+<script type="text/javascript" src="/js/zooming.js"></script>
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4, h5, h6, h1'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4, h5, h6, h1').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由©星辰白衣基于<a href="https://hexo.io/" target="_blank">Hexo</a>的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a> 主题搭建. 			
+			All Rights Reserved.
+            
+                &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+                <span class="white-color">26.6k</span>
+            
+			
+            
+			
+				
+                <br>
+				<span id="sitetime"></span> 				
+                
+                <span id="busuanzi_container_site_pv" style='display:none'>
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv" style='display:none'>
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/KnightChen2019" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:knightchend@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=254719289" class="tooltipped" data-tooltip="QQ联系我: 254719289" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript> 
+	function siteTime() { 
+		window.setTimeout("siteTime()", 1000); 
+		var seconds = 1000; 
+		var minutes = seconds * 60; 
+		var hours = minutes * 60; 
+		var days = hours * 24; 
+		var years = days * 365; 
+		var today = new Date(); 
+		var todayYear = today.getFullYear(); 
+		var todayMonth = today.getMonth() + 1; 
+		var todayDate = today.getDate(); 
+		var todayHour = today.getHours(); 
+		var todayMinute = today.getMinutes(); 
+		var todaySecond = today.getSeconds(); 
+		/* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳) 
+		year - 作为date对象的年份，为4位年份值 month - 0-11之间的整数，做为date对象的月份 
+		day - 1-31之间的整数，做为date对象的天数 
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数 
+		minutes - 0-59之间的整数，做为date对象的分钟数 
+		seconds - 0-59之间的整数，做为date对象的秒数 
+		microseconds - 0-999之间的整数，做为date对象的毫秒数 */ 
+		var t1 = Date.UTC(2019, 08, 08, 00, 00, 00); //北京时间2019-08-08 00:00:00 
+		var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond); 
+		var diff = t2 - t1; var diffYears = Math.floor(diff / years); 
+		var diffDays = Math.floor((diff / days) - diffYears * 365); 
+		var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours); 
+		var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes); 
+		var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds); document.getElementById("sitetime").innerHTML = "本站已运行 " +diffYears+" 年 "+diffDays + " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒"; 
+	}/*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/ 
+	siteTime(); 
+</script>
+
+<script> 
+	$(document).ready(function () { 
+		var int = setInterval(fixCount, 50); // 50ms周期检测函数 
+		var pvcountOffset = 00100; // 初始化首次数据 
+		var uvcountOffset = 00200;
+		
+		function fixCount() { 
+			if (document.getElementById("busuanzi_container_site_pv").style.display != "none") { 
+				$("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + pvcountOffset); 
+				clearInterval(int); 
+			} 
+			if ($("#busuanzi_container_site_pv").css("display") != "none") { 
+				$("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + uvcountOffset); // 加上初始数据 
+				clearInterval(int); // 停止检测 
+			} 
+		} 
+	}); 
+</script>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

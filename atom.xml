@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>星辰白衣</title>
+  
+  <subtitle>星辰白衣的博客</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://knightchen.com/"/>
+  <updated>2019-09-27T08:46:25.487Z</updated>
+  <id>http://knightchen.com/</id>
+  
+  <author>
+    <name>星辰白衣</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>这！就是对抗生成网络（四十六）</title>
+    <link href="http://knightchen.com/2019/09/27/dl46/"/>
+    <id>http://knightchen.com/2019/09/27/dl46/</id>
+    <published>2019-09-27T08:23:13.000Z</published>
+    <updated>2019-09-27T08:46:25.487Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h5 id=&quot;什么是GAN？&quot;&gt;&lt;a href=&quot;#什么是GAN？&quot; class=&quot;headerlink&quot; title=&quot;什么是GAN？&quot;&gt;&lt;/a&gt;什么是GAN？&lt;/h5&gt;&lt;p&gt;对抗生成网络（Generative Adversarial Nets，GAN）是由lan
+        
+      
+    
+    </summary>
+    
+      <category term="对抗生成网络" scheme="http://knightchen.com/categories/%E5%AF%B9%E6%8A%97%E7%94%9F%E6%88%90%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="GAN" scheme="http://knightchen.com/tags/GAN/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>机器学习模型中的一些评估指标（四十五）</title>
+    <link href="http://knightchen.com/2019/09/22/dl45/"/>
+    <id>http://knightchen.com/2019/09/22/dl45/</id>
+    <published>2019-09-22T15:48:15.000Z</published>
+    <updated>2019-09-27T06:52:55.113Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;对于不同的学习任务，比如分类问题，回归问题，我们学得的模型是不同的。对于不同的模型，选择合适的指标，从而判断它们的性能，进而改进这些模型，提高学习效率。这一次，就聊聊这些指标。&lt;/p&gt;
+&lt;h4 id=&quot;分类问题（Classification）&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="模型评估" scheme="http://knightchen.com/categories/%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/"/>
+    
+    
+      <category term="模型评估指标" scheme="http://knightchen.com/tags/%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E6%8C%87%E6%A0%87/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>这！就是深度学习之循环神经网络（四十四）</title>
+    <link href="http://knightchen.com/2019/09/15/dl44/"/>
+    <id>http://knightchen.com/2019/09/15/dl44/</id>
+    <published>2019-09-15T10:49:28.000Z</published>
+    <updated>2019-09-27T06:52:55.111Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;循环神经网络（Recurrent Neural
+        
+      
+    
+    </summary>
+    
+      <category term="深度学习" scheme="http://knightchen.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="RNN" scheme="http://knightchen.com/tags/RNN/"/>
+    
+      <category term="LSTM" scheme="http://knightchen.com/tags/LSTM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>这！就是概率图模型之隐马尔可夫模型和条件随机场（四十三）</title>
+    <link href="http://knightchen.com/2019/09/15/dl43/"/>
+    <id>http://knightchen.com/2019/09/15/dl43/</id>
+    <published>2019-09-15T07:08:15.000Z</published>
+    <updated>2019-09-27T06:52:55.109Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;在说条件随机场和隐马尔可夫模型之前，先说两个别的概念：判别式模型和生成式模型。&lt;/p&gt;
+&lt;h5 id=&quot;判别式模型（Discriminative-Model）&quot;&gt;&lt;a href=&quot;#判别式模型（Discriminative-Model）&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="概率图模型" scheme="http://knightchen.com/categories/%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B/"/>
+    
+    
+      <category term="HMM" scheme="http://knightchen.com/tags/HMM/"/>
+    
+      <category term="CRF" scheme="http://knightchen.com/tags/CRF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>这！就是深度学习之卷积神经网络（四十二）</title>
+    <link href="http://knightchen.com/2019/09/08/dl42/"/>
+    <id>http://knightchen.com/2019/09/08/dl42/</id>
+    <published>2019-09-08T09:20:58.000Z</published>
+    <updated>2019-09-27T06:52:55.097Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;卷积神经网络（Convolutional  Neural
+        
+      
+    
+    </summary>
+    
+      <category term="深度学习" scheme="http://knightchen.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="卷积神经网络" scheme="http://knightchen.com/tags/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"/>
+    
+      <category term="CNN" scheme="http://knightchen.com/tags/CNN/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>这！就是集成学习（四十一）</title>
+    <link href="http://knightchen.com/2019/09/01/dl41/"/>
+    <id>http://knightchen.com/2019/09/01/dl41/</id>
+    <published>2019-09-01T10:36:55.000Z</published>
+    <updated>2019-09-27T06:52:55.095Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;集成学习（Ensemble Learning）就是用多个学习器合成一个强大的学习器来训练模型，从而提高模型的泛化能力。如果你听说过HA，它和HA有异曲同工之妙，本来一个server可以提供的服务，变成多个server来提供，提高了某种能力。&lt;/p&gt;
+&lt;h4
+        
+      
+    
+    </summary>
+    
+      <category term="集成学习" scheme="http://knightchen.com/categories/%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="Bagging" scheme="http://knightchen.com/tags/Bagging/"/>
+    
+      <category term="Boosting" scheme="http://knightchen.com/tags/Boosting/"/>
+    
+      <category term="Stacking" scheme="http://knightchen.com/tags/Stacking/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一些排序算法</title>
+    <link href="http://knightchen.com/2019/08/25/sort/"/>
+    <id>http://knightchen.com/2019/08/25/sort/</id>
+    <published>2019-08-25T13:04:39.000Z</published>
+    <updated>2019-09-27T06:52:55.116Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;这里介绍几种排序算法，主要是刷LeetCode上的题。&lt;/p&gt;
+&lt;h5 id=&quot;1-双指针&quot;&gt;&lt;a href=&quot;#1-双指针&quot; class=&quot;headerlink&quot; title=&quot;1 双指针&quot;&gt;&lt;/a&gt;1 双指针&lt;/h5&gt;&lt;ol start=&quot;167&quot;&gt;
+&lt;li&gt;两数之和
+        
+      
+    
+    </summary>
+    
+      <category term="算法" scheme="http://knightchen.com/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="排序" scheme="http://knightchen.com/tags/%E6%8E%92%E5%BA%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>这！就是深度学习之反向传播算法(四十)</title>
+    <link href="http://knightchen.com/2019/08/25/dl40/"/>
+    <id>http://knightchen.com/2019/08/25/dl40/</id>
+    <published>2019-08-25T05:22:06.000Z</published>
+    <updated>2019-09-27T06:52:55.085Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;前面的第二十七和二十八篇简单的介绍了一下神经网络，不过对于其中的BP算法，还是有点不太理解，所以这次举两个例子，期望加深理解。&lt;/p&gt;
+&lt;h4 id=&quot;反向传播（Back-Propagation）算法&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="深度学习" scheme="http://knightchen.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="BP" scheme="http://knightchen.com/tags/BP/"/>
+    
+      <category term="DFN" scheme="http://knightchen.com/tags/DFN/"/>
+    
+      <category term="MLP" scheme="http://knightchen.com/tags/MLP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>这！就是深度学习之机器学习基础(三十九)</title>
+    <link href="http://knightchen.com/2019/08/25/dl39/"/>
+    <id>http://knightchen.com/2019/08/25/dl39/</id>
+    <published>2019-08-25T04:56:51.000Z</published>
+    <updated>2019-09-27T06:52:55.085Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;再次回顾线性回归和逻辑回归，是为了可以把知识串起来，形成体系。&lt;/p&gt;
+&lt;h4 id=&quot;线性回归&quot;&gt;&lt;a href=&quot;#线性回归&quot; class=&quot;headerlink&quot; title=&quot;线性回归&quot;&gt;&lt;/a&gt;线性回归&lt;/h4&gt;&lt;h5 id=&quot;模型公式&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="机器学习" scheme="http://knightchen.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="线性回归" scheme="http://knightchen.com/tags/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/"/>
+    
+      <category term="逻辑回归" scheme="http://knightchen.com/tags/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>这！就是深度学习之机器学习基础(三十八)</title>
+    <link href="http://knightchen.com/2019/08/19/dl38/"/>
+    <id>http://knightchen.com/2019/08/19/dl38/</id>
+    <published>2019-08-18T17:57:36.000Z</published>
+    <updated>2019-09-27T06:52:55.083Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;  这次主要讲降维的二种方法：主成分分析和线性判别分析的公式推导。&lt;/p&gt;
+&lt;h5 id=&quot;主成分分析（Principal-Component-Analysis，简称PCA）&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="机器学习" scheme="http://knightchen.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="PCA" scheme="http://knightchen.com/tags/PCA/"/>
+    
+      <category term="LDA" scheme="http://knightchen.com/tags/LDA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>这！就是深度学习之机器学习基础(三十七)</title>
+    <link href="http://knightchen.com/2019/08/19/dl37/"/>
+    <id>http://knightchen.com/2019/08/19/dl37/</id>
+    <published>2019-08-18T17:57:24.000Z</published>
+    <updated>2019-09-27T06:52:55.083Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;支持向量机主要用于二分类的问题，是一种监督学习算法。&lt;br&gt;比如说对于这样的一个分类问题：&lt;br&gt;&lt;img src=&quot;/2019/08/19/dl37/dl3701.jpg&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="机器学习" scheme="http://knightchen.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="SVM" scheme="http://knightchen.com/tags/SVM/"/>
+    
+      <category term="KKT" scheme="http://knightchen.com/tags/KKT/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>这！就是深度学习之机器学习基础(三十六)</title>
+    <link href="http://knightchen.com/2019/08/11/dl36/"/>
+    <id>http://knightchen.com/2019/08/11/dl36/</id>
+    <published>2019-08-11T09:35:25.000Z</published>
+    <updated>2019-09-27T06:52:55.080Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;首先更新一下机器学习算法的思维导图：&lt;br&gt;&lt;img src=&quot;/2019/08/11/dl36/dl3601.jpg&quot; alt=&quot;机器学习算法&quot;&gt;&lt;br&gt;以前已经说过了的，就不再赘述，只是对部分的知识点，深挖一下，这次就先说极大似然估计（Maximum
+        
+      
+    
+    </summary>
+    
+      <category term="深度学习" scheme="http://knightchen.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="极大似然估计" scheme="http://knightchen.com/tags/%E6%9E%81%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>基于Github+hexo+matery搭建个人博客</title>
+    <link href="http://knightchen.com/2019/08/09/setup-blog/"/>
+    <id>http://knightchen.com/2019/08/09/setup-blog/</id>
+    <published>2019-08-09T09:39:41.000Z</published>
+    <updated>2019-09-27T06:52:55.115Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h4 id=&quot;前置条件&quot;&gt;&lt;a href=&quot;#前置条件&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="软件安装与配置" scheme="http://knightchen.com/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/"/>
+    
+    
+      <category term="博客教程" scheme="http://knightchen.com/tags/%E5%8D%9A%E5%AE%A2%E6%95%99%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://knightchen.com/2019/08/01/hello-world/"/>
+    <id>http://knightchen.com/2019/08/01/hello-world/</id>
+    <published>2019-08-01T08:23:13.000Z</published>
+    <updated>2019-09-27T08:42:34.164Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;Quick-Start&quot;&gt;&lt;a href=&quot;#Quick-Start&quot; class=&quot;headerlink&quot; title=&quot;Quick Start&quot;&gt;&lt;/a&gt;Quick Start&lt;/h2&gt;&lt;p&gt;Welcome to &lt;a
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>

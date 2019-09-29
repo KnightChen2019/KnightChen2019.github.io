@@ -1,0 +1,1098 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="这！就是深度学习之循环神经网络（四十四）, 星辰白衣">
+    <meta name="description" content="循环神经网络（Recurrent Neural Network，RNN）是一类用于处理序列数据的神经网络。序列数据的特点就是前后之间有很强的关联性，也就是说前面出现的数据（比如词汇）对后面的数据有重大的影响，甚至后面的数据对前面的数据也是有">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>这！就是深度学习之循环神经网络（四十四） | 星辰白衣</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">星辰白衣</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">星辰白衣</div>
+        <div class="logo-desc">
+            
+            放弃很容易，但坚持一定很酷！
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        这！就是深度学习之循环神经网络（四十四）
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/RNN/" target="_blank">
+                                <span class="chip bg-color">RNN</span>
+                            </a>
+                        
+                            <a href="/tags/LSTM/" target="_blank">
+                                <span class="chip bg-color">LSTM</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/深度学习/" class="post-category" target="_blank">
+                                深度学习
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-09-15
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        2k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        7 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>循环神经网络（Recurrent Neural Network，RNN）是一类用于处理序列数据的神经网络。序列数据的特点就是前后之间有很强的关联性，也就是说前面出现的数据（比如词汇）对后面的数据有重大的影响，甚至后面的数据对前面的数据也是有重要影响的（双向循环神经网络）。例如句子，文档，语音都可以算是序列。</p>
+<p>对于CNN来说，它的输出只考虑了前一个输入的影响而不考虑其它时刻输入的影响，对于猫，狗，手写数字等单个物体的识别具有较好的效果。但是，对于一些与时间先后有关的，比如视频的下一刻的预测，文档前后文内容的预测等等，这些算法的表现不尽人意，因此，RNN就应运而生了。</p>
+<p>RNN不仅考虑前一刻的输入，而且对前面的内容有一种“记忆”功能。隐藏层之间的节点不再无连接而是有连接的，并且隐藏层的输入不仅包括输入层的输出，还包括上一时刻隐藏层的输出。</p>
+<h5 id="RNN的结构"><a href="#RNN的结构" class="headerlink" title="RNN的结构"></a>RNN的结构</h5><p>一个简单的RNN单元如下，左边是折叠式，右边是展开式：</p>
+<p><img src="/2019/09/15/dl44/dl4401.JPG" alt="RNN结构"></p>
+<p>上图中，t-1，t，t+1表示时间序列，x表示输入的样本，$s_t$表示样本在t时刻的记忆，并且$s_t=f(W<em>S_{t-1}+U</em>X_t)$，W表示输入的权重，U表示此刻输入的样本的权重，V表示输出的样本权重。可以看到这里的权重W，U，V是共享的。</p>
+<h5 id="RNN的前向传播"><a href="#RNN的前向传播" class="headerlink" title="RNN的前向传播"></a>RNN的前向传播</h5><p>在t=1时刻，一般初始化输入$s_0=0$，随机初始化W，U，V，进行下面的公式计算：<br>$$<br>h_1=Ux_1+Ws_0<br>$$</p>
+<p>$$<br>s_1=f(h_1)<br>$$</p>
+<p>$$<br>o_1=g(Vs_1)<br>$$</p>
+<p>其中f和g均为激活函数，f可以是tanh，relu，sigmoid等激活函数，常用为tanh，g通常是softmax函数。</p>
+<p>时间往前推进，此时的状态$s_1$做为时刻1的记忆状态将参加下一时刻的预测活动，也就是：<br>$$<br>h_2=Ux_2+Ws_1<br>$$</p>
+<p>$$<br>s_2=f(h_2)<br>$$</p>
+<p>$$<br>o_2=g(Vs_2)<br>$$</p>
+<p>以此类推，可以得到最终的输出值为：<br>$$<br>h_t=Ux_t+Ws_{t-1}<br>$$</p>
+<p>$$<br>s_t=f(h_t)<br>$$</p>
+<p>$$<br>o_t=g(Vs_t)<br>$$</p>
+<p>总结为一句话就是：新的输出是由新的输入和之前被记录下来的值所决定的。</p>
+<h5 id="RNN的反向传播"><a href="#RNN的反向传播" class="headerlink" title="RNN的反向传播"></a>RNN的反向传播</h5><p>反向传播做的事情就是更新权重参数W，U，V，每一次的输出值$O_t$都会产生一个误差值$E_t$,则总的误差可以表示为：$E=\sum_{t}e_t$，损失函数可以使用交叉熵损失函数或者平方误差损失函数。</p>
+<p>前面我们说过反向传播（Back Propagation ）算法，但是RNN除了依赖前一步的输出，还需要前若干步网络的状态，所以改进版的BP算法叫做Back Propagation Through Time（BPTT）算法。</p>
+<p>这里我们选用激活函数tanh和softmax来做说明，并且输出用y表示之前的o，则：<br>$$<br>s_t=tanh(Ux_t + Ws_{t-1})<br>$$</p>
+<p>$$<br>\hat y = softmax(Vs_t)<br>$$<br>我们定义损失函数为交叉熵损失，所以每一时刻的误差为：<br>$$<br>E_t(y_t,\hat y_t) = -y_t log \hat y_t<br>$$<br>总的误差为：<br>$$<br>E(y,\hat y)=\sum_t E_t(y_t,\hat y_t) = -\sum_t y_tlog \hat y_t<br>$$<br>这里的$y_t$是t时刻的正确单词，$\hat y_t$是网络的预测。比如，我们将完整的序列（句子）做为一个训练实例，总的误差则是各个时间点（单词）误差的和。</p>
+<p>我们的目的是计算误差关于权重参数U，V和W的梯度，并通过梯度下降法（SGD）来更新权重参数。我们用$E_3$作为例子来推导。</p>
+<p>首先看V的梯度：<br>$$<br>\frac{\partial E_3}{\partial V} = \frac{\partial E_3}{\partial \hat y_3} \frac{\partial \hat y_3}{\partial V} = \frac{\partial E_3}{\partial \hat y_3} \frac{\partial \hat y_3}{\partial z_3} \frac{\partial z_3}{\partial V} = (\hat y_3 - y_3) \bigotimes s_3<br>$$<br>上式中，我们定义$z_3 = Vs_3, \bigotimes$是两个向量的外积。因为已知$\hat y_3,y_3,s_3$,所以V的梯度可以直接计算出来。</p>
+<p>接着看W的梯度：<br>$$<br>\frac{\partial E_3}{\partial W} = \frac{\partial E_3}{\partial \hat y_3} \frac{\partial \hat y_3}{\partial s_3} \frac{\partial s_3}{\partial W}<br>$$<br>其中$s_3=tanh(Ux_3+Ws_2)$,依赖于$s_2$.而$s_2$依赖于W和$s_1$，所以对于W的求导，需要用到链式法则，即：<br>$$<br>\frac{\partial E_3}{\partial W} = \sum_{k=0}^3 \frac{\partial E_3}{\partial \hat y_3} \frac{\partial \hat y_3}{\partial s_3} \frac{\partial s_3}{\partial s_k} \frac{\partial s_k}{\partial W}<br>$$<br>由于W在每时每刻都作用在我们所关心的输出上，所以我们需要从时刻t=3，通过网络的所有路径到时刻t=0来反向传播梯度，如下图所示：</p>
+<p><img src="/2019/09/15/dl44/dl4402.JPG" alt="BPTT"></p>
+<p>同理可以求得U的梯度：<br>$$<br>\frac{\partial E_3}{\partial U} = \sum_{k=0}^3 \frac{\partial E_3}{\partial \hat y_3} \frac{\partial \hat y_3}{\partial s_3} \frac{\partial s_3}{\partial x_k} \frac{\partial x_k}{\partial U}<br>$$</p>
+<h5 id="长短时记忆网络（Long-Short-Term-Memory，LSTM）结构"><a href="#长短时记忆网络（Long-Short-Term-Memory，LSTM）结构" class="headerlink" title="长短时记忆网络（Long Short Term Memory，LSTM）结构"></a>长短时记忆网络（Long Short Term Memory，LSTM）结构</h5><p>当前预测位置和相关信息之间的文本间隔不断增大时，简单循环神经网络有可能丧失学习到距离如此远的信息的能力，或者在复杂语言场景中，有用信息的间隔有大有小，长短不一，循环神经网络的性能也会受到限制。</p>
+<p>长短时记忆模型的设计就是为了解决这个问题。采用LSTM结构的循环神经网络比标准的循环神经网络表现更好。与单一tanh循环体结构不同，LSTM是一种拥有三个“门”结构的特殊网络结构。</p>
+<h6 id="1-遗忘门"><a href="#1-遗忘门" class="headerlink" title="1. 遗忘门"></a>1. 遗忘门</h6><p>遗忘门的结构如下：</p>
+<p><img src="/2019/09/15/dl44/dl4403.JPG" alt="遗忘门"></p>
+<p>它决定丢掉细胞状态的哪些信息。根据$h_{t-1}$和$x_t$，遗忘门为状态$C_{t-1}$输出一个介于0到1之间的数字，0表示完全丢弃，1表示完全接受，数学表达式为：</p>
+<p>$f_t=\sigma(W_f[h_{t-1},x_t]+b_f)$</p>
+<h6 id="2-输入门"><a href="#2-输入门" class="headerlink" title="2.输入门"></a>2.输入门</h6><p>输入门的结构如下：</p>
+<p><img src="/2019/09/15/dl44/dl4404.JPG" alt="输入门"></p>
+<p>它由两部分构成，第一部分为sigmoid函数，输出为$i_t$，决定更新哪些值，第二部分为tanh激活函数，输出为$\tilde {C_t}$，$i_t$和$\tilde {C_t}$相乘后的结构用于更新细胞状态，数学表达式为：</p>
+<p>$i_t = \sigma(W_i[h_{t-1} ,x_t]+b_i)$</p>
+<p>$\tilde {C_t} =tanh(W_C[h_{t-1},x_t]+b_C)$</p>
+<h6 id="3-输出门"><a href="#3-输出门" class="headerlink" title="3 输出门"></a>3 输出门</h6><p>经过遗忘门换个输入门，细胞状态更新为：</p>
+<p><img src="/2019/09/15/dl44/dl4405.JPG" alt="输出门01"></p>
+<p>输出基于上述细胞状态，但是需要过滤，输出门结构如下：</p>
+<p><img src="/2019/09/15/dl44/dl4406.JPG" alt="输出门02"></p>
+<p>首先，我们使用sigmoid层决定输出细胞状态的哪些部分。然后，我们令细胞状态通过tanh层，输出结果与sigmoid层的输出结果相乘。数学公式为:</p>
+<p>$o_t = \sigma(W_o[h_{t-1,x_t}]+b_o)$</p>
+<p>$h_t=o_t*tanh(C_t)$</p>
+<h6 id="LSTM的前向传播算法"><a href="#LSTM的前向传播算法" class="headerlink" title="LSTM的前向传播算法"></a>LSTM的前向传播算法</h6><ol>
+<li><p>更新遗忘门的输出：</p>
+<p>$f_t=\sigma(W_f[h_{t-1},x_t]+b_f)$</p>
+</li>
+<li><p>更新输入门的输出：</p>
+<p>$i_t = \sigma(W_i[h_{t-1},x_t]+b_i)$</p>
+<p>$\tilde {C_t} =tanh(W_C[h_{t-1},x_t]+b_C)$</p>
+</li>
+<li><p>更新细胞状态：</p>
+<p>$C_t = f_t<em>C_{t-1}+i_t</em> \tilde {C_t}$</p>
+</li>
+<li><p>更新输出门的输出：</p>
+<p>$o_t = \sigma(W_o[h_{t-1,x_t}]+b_o)$</p>
+<p>$h_t=o_t*tanh(C_t)$$</p>
+</li>
+</ol>
+<h5 id="双向循环神经网络（BRNN）"><a href="#双向循环神经网络（BRNN）" class="headerlink" title="双向循环神经网络（BRNN）"></a>双向循环神经网络（BRNN）</h5><p>对于语言建模来说，很多时候只看前面的词是不够的的，比如下面这句话：</p>
+<blockquote>
+<p>我的手机坏了，我打算____一部新手机。</p>
+</blockquote>
+<p>如果只看横线前面的词，手机坏了，我是打算修一修？哭一哭？还是买一部新的呢？这些是无法确定的，但是根据横线后面的词语“一部新手机”，那么大概率，我会“买”。</p>
+<p>这个时候就需要双向循环神经网络，如下图所示：</p>
+<p><img src="/2019/09/15/dl44/dl4407.JPG" alt="双向循环神经网络"></p>
+<h5 id="深度循环神经网络（DRNN）"><a href="#深度循环神经网络（DRNN）" class="headerlink" title="深度循环神经网络（DRNN）"></a>深度循环神经网络（DRNN）</h5><p>前面提到的RNN都是只有一层隐藏层，如果将多个RNN单元堆叠在一起，那就形成了深度循环神经网络，或者叫多层RNN。它的网络结构如下：</p>
+<p><img src="/2019/09/15/dl44/dl4408.JPG" alt="深度循环神经网络"></p>
+
+            </div>
+            <hr/>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">愿意打赏一杯咖啡吗？</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.JPG" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.JPG" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        <p class="reprint-tip">
+            <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;
+            <span>转载规则</span>
+        </p>
+        
+            <div class="center-align">
+                <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                    <img alt=""
+                         style="border-width:0"
+                         src="https://i.creativecommons.org/l/by/4.0/88x31.png"/>
+                </a>
+            </div>
+            <br/>
+            <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+                  property="dct:title" rel="dct:type">
+                    《这！就是深度学习之循环神经网络（四十四）》
+                </span> 由
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2019/09/15/dl44/" property="cc:attributionName"
+               rel="cc:attributionURL">
+                星辰白衣
+            </a> 采用
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                知识共享署名 4.0 国际许可协议
+            </a>进行许可。
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'a7fc8ea5ba27a39c7d59',
+        clientSecret: '86776f04622f7535a21be202a0374fe9fae8faac',
+        repo: 'KnightChen2019.github.io',
+        owner: 'KnightChen2019',
+        admin: "KnightChen2019",
+        id: '2019-09-15T18-49-28',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2019/09/22/dl45/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="机器学习模型中的一些评估指标（四十五）">
+                        
+                        <span class="card-title">机器学习模型中的一些评估指标（四十五）</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            人闲桂花落，夜静春山空。
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-22
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/模型评估/" class="post-category" target="_blank">
+                                    模型评估
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/模型评估指标/" target="_blank">
+                        <span class="chip bg-color">模型评估指标</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/09/15/dl43/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="这！就是概率图模型之隐马尔可夫模型和条件随机场（四十三）">
+                        
+                        <span class="card-title">这！就是概率图模型之隐马尔可夫模型和条件随机场（四十三）</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            亭上秋风，记去年袅袅，曾到吾庐。
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-15
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/概率图模型/" class="post-category" target="_blank">
+                                    概率图模型
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/HMM/" target="_blank">
+                        <span class="chip bg-color">HMM</span>
+                    </a>
+                    
+                    <a href="/tags/CRF/" target="_blank">
+                        <span class="chip bg-color">CRF</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+
+<script type="text/javascript" src="/js/zooming.js"></script>
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4, h5, h6, h1'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4, h5, h6, h1').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由©星辰白衣基于<a href="https://hexo.io/" target="_blank">Hexo</a>的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a> 主题搭建. 			
+			All Rights Reserved.
+            
+                &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+                <span class="white-color">26.6k</span>
+            
+			
+            
+			
+				
+                <br>
+				<span id="sitetime"></span> 				
+                
+                <span id="busuanzi_container_site_pv" style='display:none'>
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv" style='display:none'>
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/KnightChen2019" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:knightchend@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=254719289" class="tooltipped" data-tooltip="QQ联系我: 254719289" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript> 
+	function siteTime() { 
+		window.setTimeout("siteTime()", 1000); 
+		var seconds = 1000; 
+		var minutes = seconds * 60; 
+		var hours = minutes * 60; 
+		var days = hours * 24; 
+		var years = days * 365; 
+		var today = new Date(); 
+		var todayYear = today.getFullYear(); 
+		var todayMonth = today.getMonth() + 1; 
+		var todayDate = today.getDate(); 
+		var todayHour = today.getHours(); 
+		var todayMinute = today.getMinutes(); 
+		var todaySecond = today.getSeconds(); 
+		/* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳) 
+		year - 作为date对象的年份，为4位年份值 month - 0-11之间的整数，做为date对象的月份 
+		day - 1-31之间的整数，做为date对象的天数 
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数 
+		minutes - 0-59之间的整数，做为date对象的分钟数 
+		seconds - 0-59之间的整数，做为date对象的秒数 
+		microseconds - 0-999之间的整数，做为date对象的毫秒数 */ 
+		var t1 = Date.UTC(2019, 08, 08, 00, 00, 00); //北京时间2019-08-08 00:00:00 
+		var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond); 
+		var diff = t2 - t1; var diffYears = Math.floor(diff / years); 
+		var diffDays = Math.floor((diff / days) - diffYears * 365); 
+		var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours); 
+		var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes); 
+		var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds); document.getElementById("sitetime").innerHTML = "本站已运行 " +diffYears+" 年 "+diffDays + " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒"; 
+	}/*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/ 
+	siteTime(); 
+</script>
+
+<script> 
+	$(document).ready(function () { 
+		var int = setInterval(fixCount, 50); // 50ms周期检测函数 
+		var pvcountOffset = 00100; // 初始化首次数据 
+		var uvcountOffset = 00200;
+		
+		function fixCount() { 
+			if (document.getElementById("busuanzi_container_site_pv").style.display != "none") { 
+				$("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + pvcountOffset); 
+				clearInterval(int); 
+			} 
+			if ($("#busuanzi_container_site_pv").css("display") != "none") { 
+				$("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + uvcountOffset); // 加上初始数据 
+				clearInterval(int); // 停止检测 
+			} 
+		} 
+	}); 
+</script>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>
