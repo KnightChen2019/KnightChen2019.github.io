@@ -4,10 +4,9 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="这！就是对抗生成网络（四十六）, 星辰白衣">
-    <meta name="description" content="什么是GAN？对抗生成网络（Generative Adversarial Nets，GAN）是由lan Goodfellow在2014年提出来的，它是一种生成式模型，属于无监督学习。先看一张GAN的图片：
-
-GAN主要由生成网络G（Gene">
+    <meta name="keywords" content="这！就是NLP之词向量和Word2Vec, 星辰白衣">
+    <meta name="description" content="自然语言处理算是人工智能落地的分支之一，它的应用场景有智能音箱，智能客服机器人，机器翻译，智能检索等等。
+语言很重要，因为它是交流和智慧传承的基础，但是语言又很难被理解，人与人之间通过语言交流都有很大的障碍，更何况让机器去理解人类的语言。但">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -15,7 +14,7 @@ GAN主要由生成网络G（Gene">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>这！就是对抗生成网络（四十六） | 星辰白衣</title>
+    <title>这！就是NLP之词向量和Word2Vec | 星辰白衣</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -262,13 +261,13 @@ GAN主要由生成网络G（Gene">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        这！就是对抗生成网络（四十六）
+                        这！就是NLP之词向量和Word2Vec
                     </div>
                 </div>
             </div>
@@ -379,8 +378,12 @@ GAN主要由生成网络G（Gene">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/GAN/" target="_blank">
-                                <span class="chip bg-color">GAN</span>
+                            <a href="/tags/Word-Vector/" target="_blank">
+                                <span class="chip bg-color">Word Vector</span>
+                            </a>
+                        
+                            <a href="/tags/Word2Vec/" target="_blank">
+                                <span class="chip bg-color">Word2Vec</span>
                             </a>
                         
                     </div>
@@ -391,8 +394,8 @@ GAN主要由生成网络G（Gene">
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/对抗生成网络/" class="post-category" target="_blank">
-                                对抗生成网络
+                            <a href="/categories/NLP/" class="post-category" target="_blank">
+                                NLP
                             </a>
                         
                     </div>
@@ -403,21 +406,21 @@ GAN主要由生成网络G（Gene">
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-09-27
+                    2019-11-03
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        2.9k
+                        2k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        10 分
+                        7 分
                     </div>
                     
                 
@@ -433,56 +436,65 @@ GAN主要由生成网络G（Gene">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h5 id="什么是GAN？"><a href="#什么是GAN？" class="headerlink" title="什么是GAN？"></a>什么是GAN？</h5><p>对抗生成网络（Generative Adversarial Nets，GAN）是由lan Goodfellow在2014年提出来的，它是一种生成式模型，属于无监督学习。先看一张GAN的图片：</p>
-<p><img src="/2019/09/27/dl46/dl4601.JPG" alt="GAN"></p>
-<p>GAN主要由生成网络G（Generator Network）和判别网络D（Discriminator Network）构成，生成模型G将一个噪声包装成一个逼真的样本，判别模型D则需要判断送入的样本是真是的还是假的样本，通过这种相互博弈，判别模型D对样本的判别能力不断上升，生成模型G的造假能力也不断上升，当判别模型D无法判别生成模型G生成的图像真伪时，即达到纳什均衡。</p>
-<h5 id="纳什均衡（Nash-Equilibrium）"><a href="#纳什均衡（Nash-Equilibrium）" class="headerlink" title="纳什均衡（Nash Equilibrium）"></a>纳什均衡（Nash Equilibrium）</h5><p>也称作纳什平衡，或者非合作博弈均衡，是博弈论的一个重要术语，以约翰•纳什命名。在一个博弈过程中，不论对方的策略选择如何，当事人一方都会选择某个确定的策略，则该策略被称作支配性策略。如果两个博弈的当事人的策略组合分别构成各自的支配性策略，那么这个组合就被定义为纳什均衡。</p>
-<p>如果在一次博弈中，双方到达了纳什均衡，也就是意味着博弈双方都没有改变自己策略的动力了，因为单方面改变自己的策略都会造成自己收益的减少。那么纳什均衡点就可以理解为个体最优解，而非集体最优解。</p>
-<p>有一个经典的例子叫做囚徒困境。</p>
-<h6 id="囚徒困境"><a href="#囚徒困境" class="headerlink" title="囚徒困境"></a>囚徒困境</h6><p>假设有两个小偷A和B联合犯事，私入民宅被警察抓住。警方将两人分别置于不同的两个房间内进行审讯，对每一个犯罪嫌疑人，警方给出的政策是：如果一个犯罪嫌疑人坦白了罪行，交出了赃物，于是证据确凿，两人都被判有罪。如果另一个犯罪嫌疑人也做了坦白，则两人给被判刑8年；如果另外一个犯罪嫌疑人没有坦白而是抵赖，则以妨碍公务罪（因已有证据表明其有罪）再加刑2年，而坦白者有功被减刑8年，里脊释放。如果两人都抵赖，则警方因证据不足不能判两人的偷窃罪，但可以私入民宅的罪名将两人各判入狱1年，如下图所示：</p>
-<p><img src="/2019/09/27/dl46/dl4602.JPG" alt="囚徒困境"></p>
-<p>对于此案，最好的策略是双方都抵赖，结果是大家都只判刑1年。但是由于两人处于隔离的情况，首先从心理学的角度来看，当事双方都会怀疑对方会出卖自己以求自保，其次才是亚当斯密的理论，假设每个人都是“理性的经纪人”，都会从利己的目的出发进行选择。两人都会有这样一个盘算过程：假如他坦白，如果我抵赖，得坐10年监狱，如果我坦白，最多才8年；假如他抵赖，如果我也抵赖，我就会被判刑1年，如果我坦白，就可以被释放，而他会作10年牢。综合以上几种情况考虑，不管他坦白与否，对我而言，都是坦白了划算。两人都会这样想，最终两人都坦白了，结果都被判刑8年。</p>
-<p>这与我国开车加塞的例子很像。如果大家都不加塞，是整体的最优解，但是按照纳什均衡理论，任何一个司机都会考虑，无论别人是否加塞，我加塞都可以使自己的收益变大。于是最终大家都会加塞，加剧拥堵，反而不如大家都不加塞走的快。</p>
-<p>那么，有没有办法使个人最优变成集体最优呢？方法就是共谋。两个小偷在作案之前可以说好，咱们如果进去了，一定都抗拒。如果你这一次敢反悔，那么以后道上的人再也不会有人跟你一起了。也就是说，在多次博弈过程中，共谋是可能的。但是如果这个小偷想干完这一票就走，共谋就是不牢靠的。</p>
-<p>在社会领域，共谋是靠法律完成的。大家约定的共谋结论就是法律，如果有人不按照约定做，就会受到法律的惩罚。通过这种方式保证最终决策从个人最优的纳什均衡点变为集体最优点。</p>
-<h5 id="GAN-目标函数"><a href="#GAN-目标函数" class="headerlink" title="GAN 目标函数"></a>GAN 目标函数</h5><p>原论文中，GAN的目标函数如下：<br>$$<br>\underset{G}{min} \underset{D}{max}V(D,G) = \mathbb {E}_{x \sim P_{data}(x)}[logD(x)] +\mathbb {E}_{z \sim P_{z}(Z)}[log(1-D(G(z)))]<br>$$<br>其中G表示判别网络，D表示生成网络。</p>
-<p>$D(x)$表示判断真实数据是否真实的概率，x表示的真实数据，所以$D(x)$越接近1越好。</p>
-<p>$G(z)$是生成的假样本，所以$D(G(z))$越接近0越好。</p>
-<p>$\mathbb {E}_{x \sim P_{data}(x)}[logD(x)]$中，E表示期望，判别出x属于真实数据data的对数损失函数。最大化这一项相当于令判别器D在x服从于data的概率密度时能准确的预测$D(x)=1$。</p>
-<p>$\mathbb {E}_{z \sim P_{z}(Z)}[log(1-D(G(z)))]$表示判别器D识别$G(z)$都为0，即$G(z)$没有欺骗判别器D。</p>
-<p>从判别器D的角度看，它希望自己能尽可能的区分真实样本和虚假样本，因此希望$D(x)$尽可能大，$D(G(z))$尽可能小，即$V(D,G)$尽可能大。从生成器G的角度看，它希望自己能可能骗过D，也就是希望$D(G(z))$尽可能大，即$V(D,G)$尽可能小，两个模型对抗，最后达到全局最优。</p>
-<p>可以用下图表示整个过程：</p>
-<p><img src="/2019/09/27/dl46/dl4603.JPG" alt="训练过程"></p>
-<p>黑色曲线是真实样本的概率分布函数，绿色曲线是虚假样本的概率分布函数，蓝色曲线是判别器D的输出，它的值越大表示这个样本越有可能是真实样本，最下方的平行线是噪声z，它映射到了x。</p>
-<p>我们可以看到，一开始$G(z)$和x虽然是在同一个特征空间里，但是它们分布的差异很大，这时，虽然鉴别真实样本和虚假样本的模型D的性能步枪，但它很容易就能把两者区分开来，而随着训练的推进，虚假样本的分布逐渐与真实样本重合，D虽然也在不断更新，但已力不从心了。最后，黑线和绿线几乎重合，模型达到了最有状态，这时D的输出对于任意样本都是0.5。</p>
-<h5 id="GAN训练方法"><a href="#GAN训练方法" class="headerlink" title="GAN训练方法"></a>GAN训练方法</h5><p>贴一张原论文中的算法图：</p>
-<p><img src="/2019/09/27/dl46/dl4604.JPG" alt="GAN算法"></p>
+                <p>自然语言处理算是人工智能落地的分支之一，它的应用场景有智能音箱，智能客服机器人，机器翻译，智能检索等等。</p>
+<p>语言很重要，因为它是交流和智慧传承的基础，但是语言又很难被理解，人与人之间通过语言交流都有很大的障碍，更何况让机器去理解人类的语言。但是难从来都不是问题，我们要做的，也只是迎难而上。</p>
+<h3 id="词向量-Word-Vector"><a href="#词向量-Word-Vector" class="headerlink" title="词向量 Word Vector"></a>词向量 Word Vector</h3><p>机器理解的语言叫做机器语言，也就是有0和1组成的二进制数，如果想让机器理解人类的语言，那么就要把人类语言转换成机器语言，也就是把文字转换成数字，转换后的结果，我们称之为词向量。</p>
+<p>将文字转换为词向量，大致有两类编码方式：离散表示和分布式表示。</p>
+<h4 id="离散表示"><a href="#离散表示" class="headerlink" title="离散表示"></a>离散表示</h4><p>不考虑词的顺序，只把单个词表示为向量，以此为代表的编码方式：</p>
+<h5 id="One-hot"><a href="#One-hot" class="headerlink" title="One-hot"></a>One-hot</h5><p>把预料中的所有词列在一个词典中，每个词都有唯一的索引。如果词典有10个词，那么这个词典就是1$\times$10维的向量，对于其中的每个词，都构造一个1$\times$10维的向量，如果该词出现过1次及以上，对应位置就记为1，没有，则即为0。</p>
+<p>比如对于句子：</p>
+<blockquote>
+<p>The quick brown fox jumps over the lazy dog</p>
+</blockquote>
+<p>它包含了所有的26个字母，那么我们可以构造这样的词向量：</p>
+<blockquote>
+<p>“the” = [1,0,0,0,0,0,0,0],”quick”=[0,1,0,0,0,0,0,0]</p>
+</blockquote>
+<p>但是one-hot有它的局限性，即太稀疏。对于一个很高维度的词向量，绝大多数的元素都是0，对于相近的单词，即使他们语义非常接近，比如“man”和“woman”，对于one-hot来说，它们的相似性为0。</p>
+<h5 id="Bags-Of-Words-词袋模型"><a href="#Bags-Of-Words-词袋模型" class="headerlink" title="Bags Of Words 词袋模型"></a>Bags Of Words 词袋模型</h5><p>会统计词在语料中出现的次数。它是one-hot词向量的加和，用元素的频率表示文本的特征。</p>
+<h5 id="TF-IDF"><a href="#TF-IDF" class="headerlink" title="TF-IDF"></a>TF-IDF</h5><p>一种统计方法，用以评估一个词对于一个文本的重要程度。</p>
+<p>TF是衡量一个词在文档中出现的多频繁，TF（t）=$\frac{（t在文档中出现的次数）}{（文档中总的词数）}$</p>
+<p>IDF是衡量一个词有多重要， IDF（t）=$log \frac{文档总数}{包含有t的文档数}$</p>
+<p>TF-IDF = TF$\times$IDF</p>
+<p>词的重要性随着词在文档中出现的次数正比增加。</p>
+<h5 id="N-gram"><a href="#N-gram" class="headerlink" title="N-gram"></a>N-gram</h5><p>N代表是几元分词，N的可取值为：</p>
 <ul>
-<li>在噪声数据分布中随机采样，输入生成模型，得到一组假数据，记为$D(z)$。</li>
-<li>在真实数据分布中随机采样，做为真实数据，记为x。</li>
-<li>将前两步中某一步产生的数据作为判别网络的输入（因为判别网络模型的输入为两类数据，真/假），判别网络的输出值为该输入属于真实数据的概率，real为1，fake为0。</li>
-<li>然后根据得到的概率值计算损失函数。</li>
-<li>根据判别模型和生成模型的损失函数，利用反向传播算法，更新模型的参数（先更新判别式模型的参数，然后通过采样得到的噪声数据更细生成器的参数）。</li>
+<li>1: unigram 以单个词构建向量</li>
+<li>2: bigram 以每两个相邻的词作为一个词组构建向量</li>
+<li>3: trigram 以每三个相邻的词作为一个词组构建向量</li>
+<li>4: 4-gram 以每四个相邻的词作为一个词组构建向量</li>
 </ul>
-<h5 id="GAN优缺点-（来自lan-Goodfellow在Quora上的回答）"><a href="#GAN优缺点-（来自lan-Goodfellow在Quora上的回答）" class="headerlink" title="GAN优缺点 （来自lan Goodfellow在Quora上的回答）"></a>GAN优缺点 （来自lan Goodfellow在Quora上的回答）</h5><h6 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h6><ul>
-<li>根据实际的结果，它们看上去可以比其它模型产生了更好的样本（图像更锐利、清晰）。</li>
-<li>生成对抗式网络框架能训练任何一种生成器网络（理论上-实践中，用 REINFORCE 来训练带有离散输出的生成网络非常困难）。大部分其他的框架需要该生成器网络有一些特定的函数形式，比如输出层是高斯的。重要的是所有其他的框架需要生成器网络遍布非零质量（non-zero mass）。</li>
-<li>生成对抗式网络能学习可以仅在与数据接近的细流形（thin manifold）上生成点。</li>
-<li>不需要设计遵循任何种类的因式分解的模型，任何生成器网络和任何鉴别器都会有用。</li>
-<li>无需利用马尔科夫链反复采样，无需在学习过程中进行推断（Inference），回避了近似计算棘手的概率的难题。</li>
-<li>与PixelRNN相比，生成一个样本的运行时间更小。GAN 每次能产生一个样本，而 PixelRNN 需要一次产生一个像素来生成样本。 </li>
-<li>与VAE 相比，它没有变化的下限。如果鉴别器网络能完美适合，那么这个生成器网络会完美地恢复训练分布。换句话说，各种对抗式生成网络会渐进一致（asymptotically consistent），而 VAE 有一定偏置。 </li>
-<li>与深度玻尔兹曼机相比，既没有一个变化的下限，也没有棘手的分区函数。它的样本可以一次性生成，而不是通过反复应用马尔可夫链运算器（Markov chain operator）。 </li>
-<li>与 GSN 相比，它的样本可以一次生成，而不是通过反复应用马尔可夫链运算器。 </li>
-<li>与NICE 和 Real NVE 相比，在 latent code 的大小上没有限制。</li>
+<p>N-gram的优点是考虑了词的顺序，但是它的缺点是词序列随着语料库膨胀很快。</p>
+<h4 id="分布式表示"><a href="#分布式表示" class="headerlink" title="分布式表示"></a>分布式表示</h4><p>用一个词附近的其它词来表示这个词，以此为代表的编码方式包括：</p>
+<h5 id="Word-Word-共现矩阵"><a href="#Word-Word-共现矩阵" class="headerlink" title="Word-Word 共现矩阵"></a>Word-Word 共现矩阵</h5><p>主要用于发现主题，即n个词共同出现的次数，使用一个堆成的局域窗，窗口的大小表示词左右的几个词，将共现矩阵的行或者列作为词向量，比如下表：</p>
+<p><img src="/2019/11/03/nlp01/nlp0101.jpg" alt="共现矩阵"></p>
+<p>但是它也有缺点：</p>
+<ul>
+<li>向量维数随词典大小线性增长，但是可以用降维方法：PCA和SVD</li>
+<li>存储整个词典所需空间消耗巨大</li>
+<li>矩阵稀疏</li>
 </ul>
-<h6 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h6><ul>
-<li>解决不收敛（non-convergence）的问题。<br>目前面临的基本问题是：所有的理论都认为 GAN 应该在纳什均衡（Nash equilibrium）上有卓越的表现，但梯度下降只有在凸函数的情况下才能保证实现纳什均衡。当博弈双方都由神经网络表示时，在没有实际达到均衡的情况下，让它们永远保持对自己策略的调整是可能的。</li>
-<li>难以训练：崩溃问题（collapse problem）<br>GAN模型被定义为极小极大问题，没有损失函数，在训练过程中很难区分是否正在取得进展。GAN的学习过程可能发生崩溃问题（collapse problem），生成器开始退化，总是生成同样的样本点，无法继续学习。当生成模型崩溃时，判别模型也会对相似的样本点指向相似的方向，训练无法继续。</li>
-<li>无需预先建模，模型过于自由不可控。<br>与其他生成式模型相比，GAN这种竞争的方式不再要求一个假设的数据分布，即不需要formulate p(x)，而是使用一种分布直接进行采样sampling，从而真正达到理论上可以完全逼近真实数据，这也是GAN最大的优势。然而，这种不需要预先建模的方法缺点是太过自由了，对于较大的图片，较多的 pixel的情形，基于简单 GAN 的方式就不太可控了(超高维)。在GAN[Goodfellow Ian, Pouget-Abadie J] 中，每次学习参数的更新过程，被设为D更新k回，G才更新1回，也是出于类似的考虑。</li>
-</ul>
-<h5 id="GAN变种"><a href="#GAN变种" class="headerlink" title="GAN变种"></a>GAN变种</h5><p>GAN问世以后，得到了广泛研究，国外有大神整理了一个GAN zoo，里面是关于GAN的各种论文，有兴趣的可以看看：</p>
-<p><a href="https://github.com/hindupuravinash/the-gan-zoo" target="_blank" rel="noopener">https://github.com/hindupuravinash/the-gan-zoo</a></p>
+<h5 id="NNLM-（Neural-Network-Language-Model）"><a href="#NNLM-（Neural-Network-Language-Model）" class="headerlink" title="NNLM （Neural Network Language Model）"></a>NNLM （Neural Network Language Model）</h5><p>神经网络语言模型，用前N个词去推测最后一个词。</p>
+<h5 id="CBOW（Continue-Bag-Of-Words）"><a href="#CBOW（Continue-Bag-Of-Words）" class="headerlink" title="CBOW（Continue Bag Of Words）"></a>CBOW（Continue Bag Of Words）</h5><p>在下面介绍Word2Vec的时候会详细说明。</p>
+<h3 id="词向量工具-Word2Vec"><a href="#词向量工具-Word2Vec" class="headerlink" title="词向量工具 Word2Vec"></a>词向量工具 Word2Vec</h3><p>2013年，Google开源了一款用于词向量计算的工具–word2vec，它可以在百万数量级的词典和上亿的数据集上进行高效的训练，从而得到词向量，并且可以很好的度量词与词之间的相似性。</p>
+<p>word2vec不是一个模型，而是一个计算word vector的开源工具，该工具主要包含了两个模型skip-gram和CBOW。</p>
+<h4 id="Skip-garm-跳字模型"><a href="#Skip-garm-跳字模型" class="headerlink" title="Skip-garm 跳字模型"></a>Skip-garm 跳字模型</h4><p>跳字模型假设基于某个词来生成它所在的文本序列周围的词。</p>
+<p>它的模型如下：</p>
+<p><img src="/2019/11/03/nlp01/nlp0102.jpg" alt="Skip-gram"></p>
+<p>举个例子，假设文本序列是“the”，“man”，“loves”，“his”和“son”。以“loves”作为中心词，假设背景窗口大小是2，如下图所示：</p>
+<p><img src="/2019/11/03/nlp01/nlp0103.jpg" alt="跳字模型"></p>
+<p>跳字模型所关心的是，给定中心词“loves”，生成与它距离不超过2个词的背景词“the”，“man”，“his”，“son”的条件概率，即：</p>
+<p>P（the，man，his，son | loves）</p>
+<p>假设给定中心词的情况下，背景词的生成式相互独立的，那么上式可以写成：</p>
+<p>P（the | loves）$\cdot $P（man | loves）$\cdot $p（his | loves）$\cdot $p（son | loves）</p>
+<p>在跳字模型中，每个词被表示成两个d维向量来计算条件概率。假设这个词在词典中索引为i，当它为中心词时向量表示为$v_i \in R_d$，而为背景词时向量表示为$u_i \in R_d$。设中心词$w_c$在词典中索引为c，背景词$w_o$在词典中所因为o，给定中心词生成背景词的条件概率可以通过对向量內积做softmax运算得到：<br>$$<br>P(w_o | w_c) = \frac{exp(u_o^Tv_c)}{\sum_{i \in V}exp(u_i^Tv_c)}<br>$$<br>其中词典索引集$V=\{0,1,\cdots,|V|-1\}$。</p>
+<p>假定给定一个长度为T的文本序列，设时间步t的词为$w_(t)$，假设给定中心词的情况下，背景词的生成相互独立，当背景窗口大小为m时，跳字模型的似然函数即给定任一中心词生成所有背景词的概率：<br>$$<br>\prod_{t=1}^{T} \prod_{-m \leq j \leq m,j \neq 0} P(w^{(t+j)} | w^{(t)})<br>$$</p>
+<h4 id="CBOW-连续词袋模型"><a href="#CBOW-连续词袋模型" class="headerlink" title="CBOW 连续词袋模型"></a>CBOW 连续词袋模型</h4><p>连续词袋模型与跳字模型类似，但相反，即它假设基于某中心词在文本序列前后的背景词来生成该中心词。</p>
+<p>它的模型如下：</p>
+<p><img src="/2019/11/03/nlp01/nlp0104.jpg" alt="CBOW"></p>
+<p>同样的例子，在文本序列“the”，“man”，“loves”，“his”和“son”里，以“loves”作为中心词，且背景窗口大小为2时，连续词袋模型关心的是，给定背景词“the”，“man”，“his”，“son”，生成中心词“loves”的条件概率，如下图所示：</p>
+<p><img src="/2019/11/03/nlp01/nlp0105.jpg" alt="连续词袋模型"></p>
+<p>因为连续词袋模型的背景词有多个，我们将这些背景词向量取平均，然后使用和跳字模型一样的方法来计算条件概率。设$v_i \in R_d$和$u_i \in R_d$分别表示词典中索引为i的词作为背景词和中心词的向量。设中心词$w_c$在词典中索引为c，背景词$w_{o_1},\ldots,w_{o_{2m}}$在词典中的索引为$o_1,\ldots,o_{2m}$，那么给定背景词生成中心词的条件概率是：<br>$$<br>P(w_c | w_{o_1},\ldots,w_{o_{2m}}) = \frac {exp(\frac{1}{2m}u_c^T(v_{o_1}+\cdots+v_{o_{2m}}))} {\sum_{i \in V}exp(\frac{1}{2m}u_i^T(v_{o_1}+\cdots+v_{o_{2m}}))}<br>$$<br>为了简化上式，我们令$W_o={w_{o_1},\ldots,w_{o_{2m}}}$，且$\overline v_o = \frac{(v_{o_1}+\ldots+v_{o_{2m}})}{2m}$，则上式可以简写为：<br>$$<br>P(w_c | W_o)=\frac{exp(u_c^T \overline v_o)}{\sum_{i \in V}exp(u_i^T \overline v_o)}<br>$$<br>给定一个长度为T的文本序列，设时间步t的词为$w(t)$，背景窗口大小为m，连续词袋模型的似然函数为由背景词生成任一中心词的概率：<br>$$<br>\prod_{t=1}^T P(w^{t} |w^{t-m},\cdots,w^{t-1},w^{t+1},\cdots,w^{t+m})<br>$$<br>一般情况下，CBOW对小型语料库比较合适，而Skip-Gram在大型预料中表现更好。</p>
 
             </div>
             <hr/>
@@ -641,9 +653,9 @@ GAN主要由生成网络G（Gene">
             <br/>
             <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
                   property="dct:title" rel="dct:type">
-                    《这！就是对抗生成网络（四十六）》
+                    《这！就是NLP之词向量和Word2Vec》
                 </span> 由
-            <a xmlns:cc="http://creativecommons.org/ns#" href="/2019/09/27/dl46/" property="cc:attributionName"
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2019/11/03/nlp01/" property="cc:attributionName"
                rel="cc:attributionURL">
                 星辰白衣
             </a> 采用
@@ -684,7 +696,7 @@ GAN主要由生成网络G（Gene">
         repo: 'KnightChen2019.github.io',
         owner: 'KnightChen2019',
         admin: "KnightChen2019",
-        id: '2019-09-27T16-23-13',
+        id: '2019-11-03T14-51-49',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -710,7 +722,61 @@ GAN主要由生成网络G（Gene">
                 <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/2019/09/27/dl46/">
+                <a href="/2019/11/03/nlp01/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="这！就是NLP之词向量和Word2Vec">
+                        
+                        <span class="card-title">这！就是NLP之词向量和Word2Vec</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            好学近乎知，力行近乎仁，知耻近乎勇。
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-11-03
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/NLP/" class="post-category" target="_blank">
+                                    NLP
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Word-Vector/" target="_blank">
+                        <span class="chip bg-color">Word Vector</span>
+                    </a>
+                    
+                    <a href="/tags/Word2Vec/" target="_blank">
+                        <span class="chip bg-color">Word2Vec</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/09/29/dl46/">
                     <div class="card-image">
                         
                         
@@ -727,7 +793,7 @@ GAN主要由生成网络G（Gene">
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-27
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-29
                             </span>
                         <span class="publish-author">
                             
@@ -741,61 +807,11 @@ GAN主要由生成网络G（Gene">
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
                     <a href="/tags/GAN/" target="_blank">
                         <span class="chip bg-color">GAN</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2019/09/22/dl45/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="机器学习模型中的一些评估指标（四十五）">
-                        
-                        <span class="card-title">机器学习模型中的一些评估指标（四十五）</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            人闲桂花落，夜静春山空。
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-22
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/模型评估/" class="post-category" target="_blank">
-                                    模型评估
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/模型评估指标/" target="_blank">
-                        <span class="chip bg-color">模型评估指标</span>
                     </a>
                     
                 </div>
@@ -925,7 +941,7 @@ GAN主要由生成网络G（Gene">
 			All Rights Reserved.
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">26.6k</span>
+                <span class="white-color">28.6k</span>
             
 			
             

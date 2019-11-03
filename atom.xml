@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://knightchen.com/"/>
-  <updated>2019-09-29T14:42:35.491Z</updated>
+  <updated>2019-11-03T14:56:41.157Z</updated>
   <id>http://knightchen.com/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>这！就是NLP之词向量和Word2Vec</title>
+    <link href="http://knightchen.com/2019/11/03/nlp01/"/>
+    <id>http://knightchen.com/2019/11/03/nlp01/</id>
+    <published>2019-11-03T06:51:49.000Z</published>
+    <updated>2019-11-03T14:56:41.157Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;自然语言处理算是人工智能落地的分支之一，它的应用场景有智能音箱，智能客服机器人，机器翻译，智能检索等等。&lt;/p&gt;
+&lt;p&gt;语言很重要，因为它是交流和智慧传承的基础，但是语言又很难被理解，人与人之间通过语言交流都有很大的障碍，更何况让机器去理解人类的语言。但是难从来都不是问题，
+        
+      
+    
+    </summary>
+    
+      <category term="NLP" scheme="http://knightchen.com/categories/NLP/"/>
+    
+    
+      <category term="Word Vector" scheme="http://knightchen.com/tags/Word-Vector/"/>
+    
+      <category term="Word2Vec" scheme="http://knightchen.com/tags/Word2Vec/"/>
+    
+  </entry>
   
   <entry>
     <title>这！就是对抗生成网络（四十六）</title>
