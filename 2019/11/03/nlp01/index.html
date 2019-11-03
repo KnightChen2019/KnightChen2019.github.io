@@ -4,7 +4,7 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="这！就是NLP之词向量和Word2Vec, 星辰白衣">
+    <meta name="keywords" content="这！就是NLP之词向量和Word2Vec（四十七）, 星辰白衣">
     <meta name="description" content="自然语言处理算是人工智能落地的分支之一，它的应用场景有智能音箱，智能客服机器人，机器翻译，智能检索等等。
 语言很重要，因为它是交流和智慧传承的基础，但是语言又很难被理解，人与人之间通过语言交流都有很大的障碍，更何况让机器去理解人类的语言。但">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,7 +14,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>这！就是NLP之词向量和Word2Vec | 星辰白衣</title>
+    <title>这！就是NLP之词向量和Word2Vec（四十七） | 星辰白衣</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -261,13 +261,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        这！就是NLP之词向量和Word2Vec
+                        这！就是NLP之词向量和Word2Vec（四十七）
                     </div>
                 </div>
             </div>
@@ -378,8 +378,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Word-Vector/" target="_blank">
-                                <span class="chip bg-color">Word Vector</span>
+                            <a href="/tags/词向量/" target="_blank">
+                                <span class="chip bg-color">词向量</span>
                             </a>
                         
                             <a href="/tags/Word2Vec/" target="_blank">
@@ -438,17 +438,17 @@
             <div id="articleContent">
                 <p>自然语言处理算是人工智能落地的分支之一，它的应用场景有智能音箱，智能客服机器人，机器翻译，智能检索等等。</p>
 <p>语言很重要，因为它是交流和智慧传承的基础，但是语言又很难被理解，人与人之间通过语言交流都有很大的障碍，更何况让机器去理解人类的语言。但是难从来都不是问题，我们要做的，也只是迎难而上。</p>
-<h3 id="词向量-Word-Vector"><a href="#词向量-Word-Vector" class="headerlink" title="词向量 Word Vector"></a>词向量 Word Vector</h3><p>机器理解的语言叫做机器语言，也就是有0和1组成的二进制数，如果想让机器理解人类的语言，那么就要把人类语言转换成机器语言，也就是把文字转换成数字，转换后的结果，我们称之为词向量。</p>
+<h3 id="词向量-Word-Vector"><a href="#词向量-Word-Vector" class="headerlink" title="词向量 Word Vector"></a>词向量 Word Vector</h3><p>机器理解的语言叫做机器语言，也就是由0和1组成的二进制数，如果想让机器理解人类的语言，那么就要把人类语言转换成机器语言，也就是把文字转换成数字，转换后的结果，我们称之为词向量。</p>
 <p>将文字转换为词向量，大致有两类编码方式：离散表示和分布式表示。</p>
 <h4 id="离散表示"><a href="#离散表示" class="headerlink" title="离散表示"></a>离散表示</h4><p>不考虑词的顺序，只把单个词表示为向量，以此为代表的编码方式：</p>
-<h5 id="One-hot"><a href="#One-hot" class="headerlink" title="One-hot"></a>One-hot</h5><p>把预料中的所有词列在一个词典中，每个词都有唯一的索引。如果词典有10个词，那么这个词典就是1$\times$10维的向量，对于其中的每个词，都构造一个1$\times$10维的向量，如果该词出现过1次及以上，对应位置就记为1，没有，则即为0。</p>
+<h5 id="One-hot"><a href="#One-hot" class="headerlink" title="One-hot"></a>One-hot</h5><p>把语料中的所有词列在一个词典中，每个词都有唯一的索引。如果词典有10个词，那么这个词典就是1$\times$10维的向量，对于其中的每个词，都构造一个1$\times$10维的向量，如果该词出现过1次及以上，对应位置就记为1，没有，则记为0。</p>
 <p>比如对于句子：</p>
 <blockquote>
 <p>The quick brown fox jumps over the lazy dog</p>
 </blockquote>
-<p>它包含了所有的26个字母，那么我们可以构造这样的词向量：</p>
+<p>它包含了英文的26个字母，那么我们可以构造这样的词向量：</p>
 <blockquote>
-<p>“the” = [1,0,0,0,0,0,0,0],”quick”=[0,1,0,0,0,0,0,0]</p>
+<p>“the” = [1,0,0,0,0,0,0,0],”quick”=[0,1,0,0,0,0,0,0] …</p>
 </blockquote>
 <p>但是one-hot有它的局限性，即太稀疏。对于一个很高维度的词向量，绝大多数的元素都是0，对于相近的单词，即使他们语义非常接近，比如“man”和“woman”，对于one-hot来说，它们的相似性为0。</p>
 <h5 id="Bags-Of-Words-词袋模型"><a href="#Bags-Of-Words-词袋模型" class="headerlink" title="Bags Of Words 词袋模型"></a>Bags Of Words 词袋模型</h5><p>会统计词在语料中出现的次数。它是one-hot词向量的加和，用元素的频率表示文本的特征。</p>
@@ -466,7 +466,7 @@
 </ul>
 <p>N-gram的优点是考虑了词的顺序，但是它的缺点是词序列随着语料库膨胀很快。</p>
 <h4 id="分布式表示"><a href="#分布式表示" class="headerlink" title="分布式表示"></a>分布式表示</h4><p>用一个词附近的其它词来表示这个词，以此为代表的编码方式包括：</p>
-<h5 id="Word-Word-共现矩阵"><a href="#Word-Word-共现矩阵" class="headerlink" title="Word-Word 共现矩阵"></a>Word-Word 共现矩阵</h5><p>主要用于发现主题，即n个词共同出现的次数，使用一个堆成的局域窗，窗口的大小表示词左右的几个词，将共现矩阵的行或者列作为词向量，比如下表：</p>
+<h5 id="Word-Word-共现矩阵"><a href="#Word-Word-共现矩阵" class="headerlink" title="Word-Word 共现矩阵"></a>Word-Word 共现矩阵</h5><p>主要用于发现主题，即n个词共同出现的次数，使用一个对称的局域窗，窗口的大小表示词左右的几个词，将共现矩阵的行或者列作为词向量，比如下表：</p>
 <p><img src="/2019/11/03/nlp01/nlp0101.jpg" alt="共现矩阵"></p>
 <p>但是它也有缺点：</p>
 <ul>
@@ -653,7 +653,7 @@
             <br/>
             <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
                   property="dct:title" rel="dct:type">
-                    《这！就是NLP之词向量和Word2Vec》
+                    《这！就是NLP之词向量和Word2Vec（四十七）》
                 </span> 由
             <a xmlns:cc="http://creativecommons.org/ns#" href="/2019/11/03/nlp01/" property="cc:attributionName"
                rel="cc:attributionURL">
@@ -726,9 +726,9 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="这！就是NLP之词向量和Word2Vec">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="这！就是NLP之词向量和Word2Vec（四十七）">
                         
-                        <span class="card-title">这！就是NLP之词向量和Word2Vec</span>
+                        <span class="card-title">这！就是NLP之词向量和Word2Vec（四十七）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -757,8 +757,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Word-Vector/" target="_blank">
-                        <span class="chip bg-color">Word Vector</span>
+                    <a href="/tags/词向量/" target="_blank">
+                        <span class="chip bg-color">词向量</span>
                     </a>
                     
                     <a href="/tags/Word2Vec/" target="_blank">

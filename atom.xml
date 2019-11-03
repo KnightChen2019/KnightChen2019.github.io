@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://knightchen.com/"/>
-  <updated>2019-11-03T14:56:41.157Z</updated>
+  <updated>2019-11-03T15:23:05.455Z</updated>
   <id>http://knightchen.com/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>这！就是NLP之词向量和Word2Vec</title>
+    <title>这！就是NLP之词向量和Word2Vec（四十七）</title>
     <link href="http://knightchen.com/2019/11/03/nlp01/"/>
     <id>http://knightchen.com/2019/11/03/nlp01/</id>
     <published>2019-11-03T06:51:49.000Z</published>
-    <updated>2019-11-03T14:56:41.157Z</updated>
+    <updated>2019-11-03T15:23:05.455Z</updated>
     
     <summary type="html">
     
@@ -39,7 +39,7 @@
       <category term="NLP" scheme="http://knightchen.com/categories/NLP/"/>
     
     
-      <category term="Word Vector" scheme="http://knightchen.com/tags/Word-Vector/"/>
+      <category term="词向量" scheme="http://knightchen.com/tags/%E8%AF%8D%E5%90%91%E9%87%8F/"/>
     
       <category term="Word2Vec" scheme="http://knightchen.com/tags/Word2Vec/"/>
     
