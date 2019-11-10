@@ -4,10 +4,8 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="这！就是对抗生成网络（四十六）, 星辰白衣">
-    <meta name="description" content="什么是GAN？对抗生成网络（Generative Adversarial Nets，GAN）是由lan Goodfellow在2014年提出来的，它是一种生成式模型，属于无监督学习。先看一张GAN的图片：
-
-GAN主要由生成网络G（Gene">
+    <meta name="keywords" content="这！就是NLP之负采样和GloVe（四十八）, 星辰白衣">
+    <meta name="description" content="Negative Sampling （负采样）在原来构建词向量模型时，softmax会把词典中的每一个词考虑进概率的表达式中。而负采样方法就是把原来这样的巨量分类问题，变成一个简单的二分类问题。也就是说，原来正确的label依然保留，只要s">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -15,7 +13,7 @@ GAN主要由生成网络G（Gene">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>这！就是对抗生成网络（四十六） | 星辰白衣</title>
+    <title>这！就是NLP之负采样和GloVe（四十八） | 星辰白衣</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -262,13 +260,13 @@ GAN主要由生成网络G（Gene">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        这！就是对抗生成网络（四十六）
+                        这！就是NLP之负采样和GloVe（四十八）
                     </div>
                 </div>
             </div>
@@ -379,8 +377,12 @@ GAN主要由生成网络G（Gene">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/GAN/" target="_blank">
-                                <span class="chip bg-color">GAN</span>
+                            <a href="/tags/GloVe/" target="_blank">
+                                <span class="chip bg-color">GloVe</span>
+                            </a>
+                        
+                            <a href="/tags/负采样/" target="_blank">
+                                <span class="chip bg-color">负采样</span>
                             </a>
                         
                     </div>
@@ -391,8 +393,8 @@ GAN主要由生成网络G（Gene">
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/对抗生成网络/" class="post-category" target="_blank">
-                                对抗生成网络
+                            <a href="/categories/NLP/" class="post-category" target="_blank">
+                                NLP
                             </a>
                         
                     </div>
@@ -403,21 +405,21 @@ GAN主要由生成网络G（Gene">
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-09-29
+                    2019-11-10
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        2.9k
+                        1.9k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        10 分
+                        7 分
                     </div>
                     
                 
@@ -433,56 +435,57 @@ GAN主要由生成网络G（Gene">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h5 id="什么是GAN？"><a href="#什么是GAN？" class="headerlink" title="什么是GAN？"></a>什么是GAN？</h5><p>对抗生成网络（Generative Adversarial Nets，GAN）是由lan Goodfellow在2014年提出来的，它是一种生成式模型，属于无监督学习。先看一张GAN的图片：</p>
-<p><img src="/2019/09/29/dl46/dl4601.JPG" alt="GAN"></p>
-<p>GAN主要由生成网络G（Generator Network）和判别网络D（Discriminator Network）构成，生成模型G将一个噪声包装成一个逼真的样本，判别模型D则需要判断送入的样本是真是的还是假的样本，通过这种相互博弈，判别模型D对样本的判别能力不断上升，生成模型G的造假能力也不断上升，当判别模型D无法判别生成模型G生成的图像真伪时，即达到纳什均衡。</p>
-<h5 id="纳什均衡（Nash-Equilibrium）"><a href="#纳什均衡（Nash-Equilibrium）" class="headerlink" title="纳什均衡（Nash Equilibrium）"></a>纳什均衡（Nash Equilibrium）</h5><p>也称作纳什平衡，或者非合作博弈均衡，是博弈论的一个重要术语，以约翰•纳什命名。在一个博弈过程中，不论对方的策略选择如何，当事人一方都会选择某个确定的策略，则该策略被称作支配性策略。如果两个博弈的当事人的策略组合分别构成各自的支配性策略，那么这个组合就被定义为纳什均衡。</p>
-<p>如果在一次博弈中，双方到达了纳什均衡，也就是意味着博弈双方都没有改变自己策略的动力了，因为单方面改变自己的策略都会造成自己收益的减少。那么纳什均衡点就可以理解为个体最优解，而非集体最优解。</p>
-<p>有一个经典的例子叫做囚徒困境。</p>
-<h6 id="囚徒困境"><a href="#囚徒困境" class="headerlink" title="囚徒困境"></a>囚徒困境</h6><p>假设有两个小偷A和B联合犯事，私入民宅被警察抓住。警方将两人分别置于不同的两个房间内进行审讯，对每一个犯罪嫌疑人，警方给出的政策是：如果一个犯罪嫌疑人坦白了罪行，交出了赃物，于是证据确凿，两人都被判有罪。如果另一个犯罪嫌疑人也做了坦白，则两人各被判刑8年；如果另外一个犯罪嫌疑人没有坦白而是抵赖，则以妨碍公务罪（因已有证据表明其有罪）再加刑2年，而坦白者有功被减刑8年，立即释放。如果两人都抵赖，则警方因证据不足不能判两人的偷窃罪，但可以私入民宅的罪名将两人各判入狱1年，如下图所示：</p>
-<p><img src="/2019/09/29/dl46/dl4602.JPG" alt="囚徒困境"></p>
-<p>对于此案，最好的策略是双方都抵赖，结果是大家都只判刑1年。但是由于两人处于隔离的情况，首先从心理学的角度来看，当事双方都会怀疑对方会出卖自己以求自保，其次才是亚当斯密的理论，假设每个人都是“理性的经纪人”，都会从利己的目的出发进行选择。两人都会有这样一个盘算过程：假如他坦白，如果我抵赖，得坐10年监狱，如果我坦白，最多才8年；假如他抵赖，如果我也抵赖，我就会被判刑1年，如果我坦白，就可以被释放，而他会坐10年牢。综合以上几种情况考虑，不管他坦白与否，对我而言，都是坦白了划算。两人都会这样想，最终两人都坦白了，结果都被判刑8年。</p>
-<p>这与我国开车加塞的例子很像。如果大家都不加塞，是整体的最优解，但是按照纳什均衡理论，任何一个司机都会考虑，无论别人是否加塞，我加塞都可以使自己的收益变大。于是最终大家都会加塞，加剧拥堵，反而不如大家都不加塞走的快。</p>
-<p>那么，有没有办法使个人最优变成集体最优呢？方法就是共谋。两个小偷在作案之前可以说好，咱们如果进去了，一定都抗拒。如果你这一次敢反悔，那么以后道上的人再也不会有人跟你一起了。也就是说，在多次博弈过程中，共谋是可能的。但是如果这个小偷想干完这一票就走，共谋就是不牢靠的。</p>
-<p>在社会领域，共谋是靠法律完成的。大家约定的共谋结论就是法律，如果有人不按照约定做，就会受到法律的惩罚。通过这种方式保证最终决策从个人最优的纳什均衡点变为集体最优点。</p>
-<h5 id="GAN-目标函数"><a href="#GAN-目标函数" class="headerlink" title="GAN 目标函数"></a>GAN 目标函数</h5><p>原论文中，GAN的目标函数如下：<br>$$<br>\underset{G}{min} \underset{D}{max}V(D,G) = \mathbb {E}_{x \sim P_{data}(x)}[logD(x)] +\mathbb {E}_{z \sim P_{z}(Z)}[log(1-D(G(z)))]<br>$$<br>其中G表示判别网络，D表示生成网络。</p>
-<p>$D(x)$表示判断真实数据是否真实的概率，x表示的真实数据，所以$D(x)$越接近1越好。</p>
-<p>$G(z)$是生成的假样本，所以$D(G(z))$越接近0越好。</p>
-<p>$\mathbb {E}_{x \sim P_{data}(x)}[logD(x)]$中，E表示期望，判别出x属于真实数据data的对数损失函数。最大化这一项相当于令判别器D在x服从于data的概率密度时能准确的预测$D(x)=1$。</p>
-<p>$\mathbb {E}_{z \sim P_{z}(Z)}[log(1-D(G(z)))]$表示判别器D识别$G(z)$都为0，即$G(z)$没有欺骗判别器D。</p>
-<p>从判别器D的角度看，它希望自己能尽可能的区分真实样本和虚假样本，因此希望$D(x)$尽可能大，$D(G(z))$尽可能小，即$V(D,G)$尽可能大。从生成器G的角度看，它希望自己能可能骗过D，也就是希望$D(G(z))$尽可能大，即$V(D,G)$尽可能小，两个模型对抗，最后达到全局最优。</p>
-<p>可以用下图表示整个过程：</p>
-<p><img src="/2019/09/29/dl46/dl4603.JPG" alt="训练过程"></p>
-<p>黑色曲线是真实样本的概率分布函数，绿色曲线是虚假样本的概率分布函数，蓝色曲线是判别器D的输出，它的值越大表示这个样本越有可能是真实样本，最下方的平行线是噪声z，它映射到了x。</p>
-<p>我们可以看到，一开始$G(z)$和x虽然是在同一个特征空间里，但是它们分布的差异很大，这时，虽然鉴别真实样本和虚假样本的模型D的性能不强，但它很容易就能把两者区分开来，而随着训练的推进，虚假样本的分布逐渐与真实样本重合，D虽然也在不断更新，但已力不从心了。最后，黑线和绿线几乎重合，模型达到了最优状态，这时D的输出对于任意样本都是0.5。</p>
-<h5 id="GAN训练方法"><a href="#GAN训练方法" class="headerlink" title="GAN训练方法"></a>GAN训练方法</h5><p>贴一张原论文中的算法图：</p>
-<p><img src="/2019/09/29/dl46/dl4604.JPG" alt="GAN算法"></p>
+                <h3 id="Negative-Sampling-（负采样）"><a href="#Negative-Sampling-（负采样）" class="headerlink" title="Negative Sampling （负采样）"></a>Negative Sampling （负采样）</h3><p>在原来构建词向量模型时，softmax会把词典中的每一个词考虑进概率的表达式中。而负采样方法就是把原来这样的巨量分类问题，变成一个简单的二分类问题。也就是说，原来正确的label依然保留，只要sample出一小部分的负样本出来，然后做一个二分类问题就可以了。</p>
+<p>负采样修改了原来的目标函数，给定中心词$w_c$的一个背景窗口，我们把背景词$w_o$出现在该背景窗口看做一个事件，并将该事件的概率计算为：<br>$$<br>P(D=1|w_c,w_o) = \sigma(u_o^Tv_c)<br>$$<br>其中的$\sigma$函数与sigmoid激活函数的定义相同：<br>$$<br>\sigma(x) = \frac{1}{1+exp(-x)}<br>$$<br>我们先考虑最大化文本序列中所有该事件的联合概率来训练词向量，具体来说，给定一个长度为T的文本序列，设时间步t的词为$w^{(t)}$且背景窗口大小为m，考虑最大化联合概率：<br>$$<br>\prod_{t=1}^T \prod_{-m \leq j \leq m，j \neq 0}P(D=1|w^{(t)},w^{(t+j)})<br>$$<br>以上模型中包含的事件仅考虑了正类样本，这导致当所有的词向量相等且值为无穷大时，其联合概率才被最大化为1。很明显，这样的词向量毫无意义，负采样通过采样并添加负类样本使目标函数更有意义。设背景词$w_o$出现在中心词$w_c$的一个背景窗口为事件P，我们根据分布$P(w)$采样K个未出现在该背景窗口的词，即噪声词。设噪声词$w_k(k=1,\cdots,K)$不出现在中心词$w_c$的背景窗口为事件$N_k$。假设同时含有正类样本和负类样本的事件$P,N_1,\cdots,N_K$相互独立，负采样将以上需要最大化的仅考虑正类样本的联合概率改写为：<br>$$<br>\prod_{t=1}^T \prod_{-m \leq j \leq m，j \neq 0}P(w^{(t+j)}|w^{(t)})<br>$$<br>其中条件概率被近似表示为：<br>$$<br>P(w^{(t+j)}|w^{(t)})=P(D=1|w^{(t)},w^{(t+j)}) \prod_{k=1,w_k \sim P(w)}^{K}P(D=0|w^{(t)},w_k)<br>$$<br>设文本序列中时间步t的词$w^{(t)}$在词典中的索引为$i_t$，噪声词$w_k$在词典中的索引为$h_k$，有关以上条件概率的对数损失为：<br>$$<br>-logP(w^{(t+j)}|w^{(t)}) = -logP(D=1|w^{(t)},w^{(t+j)}) - \sum_{k=1,w_k \sim P(w)}^{K}logP(D=0 | w^{(t)},w_k)<br>$$</p>
+<p>$$<br>=-log \sigma(u_{i_{t+j}}^T v_{i_t})-\sum_{k=1,w_k \sim P(w)}^K log(1- \sigma (u_{h_k}^T v_{i_t}))<br>$$</p>
+<p>$$<br>=-log \sigma(u_{i_{t+j}}^T v_{i_t})-\sum_{k=1,w_k \sim P(w)}^K log \sigma (-u_{h_k}^T v{i_t})<br>$$</p>
+<p>训练中的每一步梯度计算开销不再与词典大小相关，而与K线性相关，当K取较小的常数时，负采样在每一步的梯度计算开销较小。</p>
+<h3 id="GloVe（Global-Vectors-for-Word-Representation）"><a href="#GloVe（Global-Vectors-for-Word-Representation）" class="headerlink" title="GloVe（Global Vectors for Word Representation）"></a>GloVe（Global Vectors for Word Representation）</h3><p>GloVe和Word2vec一样，是一种常用的生成词向量的工具/方法，二者的不同之处在于，word2vec认为所有的co-occurrences的权重都应该是相同的，而GloVe认为权重应该不同，所以它提出了weighted least squares regression model，用加权最小二乘法来最小化二个词的向量点积与它们共线次数的对数之间的差异。</p>
+<p>GloVe模型的目标是最小化损失函数：<br>$$<br>\sum_{i \in V} \sum_{j \in V} h(x_{ij})(u_j^Tv_i+b_i+c_j-logx_{ij})^2<br>$$<br>其中权重函数$h(x)$的一个建议选择是：当$x &lt; c$时（如c=100），令$h(x)=(\frac{x}{c})^{\alpha},(比如\alpha=0.75)$，反之令$h(x)=1$。因为$h(x)=0$，所以对于$x_{ij}=0$的平方损失项可以直接忽略。当使用小批量随机梯度下降来训练时，每个时间步我们随机采样小批量非零$x_{ij}$，然后计算梯度来迭代模型参数。这些非零$x_{ij}$是预先基于整个数据集计算得到的，包含了数据集的全局统计信息。</p>
+<p>如果词$w_i$出现在词$w_j$的背景窗口里，那么词$w_j$也会出现在词$w_i$的背景窗口里。也就是说$x_{ij}=x_{ji}$，不同于word2vec中拟合的非对称条件概率$p_{ij}$，GloVe模型拟合的是对称的$logx_{ij}$。因此，任意词的中心词向量和背景词向量在GloVe模型中是等价的。但是由于初始化值的不同，同一个词最终学习到的两组词向量可能不同。当学习得到所有的词向量以后，GloVe模型使用中心词向量与背景词词向量之和作为该词的最终词向量。</p>
+<p>举个例子，源于某大型语料库，以下列举了两组分别以“ice”（冰）和“steam”（水蒸气）为中心词的条件概率以及它们之间的比值：</p>
+<table>
+<thead>
+<tr>
+<th>$w_k$=</th>
+<th>“solid”</th>
+<th>“gas”</th>
+<th>“water”</th>
+<th>“fashion”</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$p_1=P(w_k</td>
+<td>“ice”)$</td>
+<td>0.00019</td>
+<td>0.000066</td>
+<td>0.003</td>
+</tr>
+<tr>
+<td>$p_2 = P(w_k</td>
+<td>“steam”)$</td>
+<td>0.000022</td>
+<td>0.00078</td>
+<td>0.0022</td>
+</tr>
+<tr>
+<td>$p_1 / p_2$</td>
+<td>8.9</td>
+<td>0.085</td>
+<td>1.36</td>
+<td>0.96</td>
+</tr>
+</tbody></table>
+<p>其中$P(w_j|w_i)$表示数据集中以$w_i$为中心词生成背景词$w_j$的条件概率，并记作$p_{ij}$。</p>
+<p>我们可以观察到以下现象：</p>
 <ul>
-<li>在噪声数据分布中随机采样，输入生成模型，得到一组假数据，记为$D(z)$。</li>
-<li>在真实数据分布中随机采样，作为真实数据，记为x。</li>
-<li>将前两步中某一步产生的数据作为判别网络的输入（因为判别网络模型的输入为两类数据，真/假），判别网络的输出值为该输入属于真实数据的概率，real为1，fake为0。</li>
-<li>然后根据得到的概率值计算损失函数。</li>
-<li>根据判别模型和生成模型的损失函数，利用反向传播算法，更新模型的参数（先更新判别式模型的参数，然后通过采样得到的噪声数据更细生成器的参数）。</li>
+<li>对于与“ice”相关而与“steam”不相关的词$w_k$，比如$w_k$=”solid”（固体），我们期望条件概率比值较大，如上表最后一行中的值8.9</li>
+<li>对于与“ice”不相关而与“steam”相关的词$w_k$，比如$w_k$=“gas”（气体），我们期望条件概率比值较小，如上表最后一行中的值0.085</li>
+<li>对于与“ice”和“steam”都相关的词$w_k$，比如$w_k$=“water”（水），我们期望条件概率比值接近1，如上表最后一行中的值1.36</li>
+<li>对于与“ice”和“steam”都不相关的词$w_k$，比如$w_k$=“fashion”（时尚），我们期望条件概率比值接近1，如上表最后一行中的值0.96</li>
 </ul>
-<h5 id="GAN优缺点-（来自lan-Goodfellow在Quora上的回答）"><a href="#GAN优缺点-（来自lan-Goodfellow在Quora上的回答）" class="headerlink" title="GAN优缺点 （来自lan Goodfellow在Quora上的回答）"></a>GAN优缺点 （来自lan Goodfellow在Quora上的回答）</h5><h6 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h6><ul>
-<li>根据实际的结果，它们看上去可以比其它模型产生了更好的样本（图像更锐利、清晰）。</li>
-<li>生成对抗式网络框架能训练任何一种生成器网络（理论上-实践中，用 REINFORCE 来训练带有离散输出的生成网络非常困难）。大部分其他的框架需要该生成器网络有一些特定的函数形式，比如输出层是高斯的。重要的是所有其他的框架需要生成器网络遍布非零质量（non-zero mass）。</li>
-<li>生成对抗式网络能学习可以仅在与数据接近的细流形（thin manifold）上生成点。</li>
-<li>不需要设计遵循任何种类的因式分解的模型，任何生成器网络和任何鉴别器都会有用。</li>
-<li>无需利用马尔科夫链反复采样，无需在学习过程中进行推断（Inference），回避了近似计算棘手的概率的难题。</li>
-<li>与PixelRNN相比，生成一个样本的运行时间更小。GAN 每次能产生一个样本，而 PixelRNN 需要一次产生一个像素来生成样本。 </li>
-<li>与VAE 相比，它没有变化的下限。如果鉴别器网络能完美适合，那么这个生成器网络会完美地恢复训练分布。换句话说，各种对抗式生成网络会渐进一致（asymptotically consistent），而 VAE 有一定偏置。 </li>
-<li>与深度玻尔兹曼机相比，既没有一个变化的下限，也没有棘手的分区函数。它的样本可以一次性生成，而不是通过反复应用马尔可夫链运算器（Markov chain operator）。 </li>
-<li>与 GSN 相比，它的样本可以一次生成，而不是通过反复应用马尔可夫链运算器。 </li>
-<li>与NICE 和 Real NVE 相比，在 latent code 的大小上没有限制。</li>
-</ul>
-<h6 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h6><ul>
-<li>解决不收敛（non-convergence）的问题。<br>目前面临的基本问题是：所有的理论都认为 GAN 应该在纳什均衡（Nash equilibrium）上有卓越的表现，但梯度下降只有在凸函数的情况下才能保证实现纳什均衡。当博弈双方都由神经网络表示时，在没有实际达到均衡的情况下，让它们永远保持对自己策略的调整是可能的。</li>
-<li>难以训练：崩溃问题（collapse problem）<br>GAN模型被定义为极小极大问题，没有损失函数，在训练过程中很难区分是否正在取得进展。GAN的学习过程可能发生崩溃问题（collapse problem），生成器开始退化，总是生成同样的样本点，无法继续学习。当生成模型崩溃时，判别模型也会对相似的样本点指向相似的方向，训练无法继续。</li>
-<li>无需预先建模，模型过于自由不可控。<br>与其他生成式模型相比，GAN这种竞争的方式不再要求一个假设的数据分布，即不需要formulate p(x)，而是使用一种分布直接进行采样sampling，从而真正达到理论上可以完全逼近真实数据，这也是GAN最大的优势。然而，这种不需要预先建模的方法缺点是太过自由了，对于较大的图片，较多的 pixel的情形，基于简单 GAN 的方式就不太可控了(超高维)。在GAN[Goodfellow Ian, Pouget-Abadie J] 中，每次学习参数的更新过程，被设为D更新k回，G才更新1回，也是出于类似的考虑。</li>
-</ul>
-<h5 id="GAN变种"><a href="#GAN变种" class="headerlink" title="GAN变种"></a>GAN变种</h5><p>GAN问世以后，得到了广泛研究，国外有大神整理了一个GAN zoo，里面是关于GAN的各种论文，有兴趣的可以看看：</p>
-<p><a href="https://github.com/hindupuravinash/the-gan-zoo" target="_blank" rel="noopener">https://github.com/hindupuravinash/the-gan-zoo</a></p>
+<p>由此可见，条件概率比值能够比较直观的表达词与词之间的关系。我们可以构造一个词向量函数，使它能有效拟合条件概率比值。我们知道，任意一个这样的比值需要三个词$w_i,w_j,w_k$，以$w_i$作为中心词的条件概率比值为$p_{ij}/p_{ik}$。我们可以找一个函数，它使用词向量来拟合这个条件概率比值：<br>$$<br>f(u_j,u_k,v_i) \approx \frac{p_{ij}}{p_{ik}}<br>$$<br>这里的函数f可以设计的不唯一，我们只需考虑一种较为合理的可能性。条件概率比值是一个标量，我们可以将f限制为一个标量函数：$f(u_j,u_k,v_i) = f((u_j-u_k)^Tv_i)$，交换索引j和k后可以看到函数f应该满足$f(x)f(-x)=1$，因此一种可能是$f(x)=exp(x)$,于是：<br>$$<br>f(u_j,u_k,v_i)=\frac{exp(u_j^Tv_i)}{exp(u_k^Tv_i)} \approx \frac{p_{ij}}{p_{ik}}<br>$$<br>满足最右边约等号的一种可能是$exp(u_j^Tv_i) \approx \alpha p_{ij}$，这里$\alpha$是一个常数。</p>
+<p>考虑到$p_{ij}=x_{ij} /x_i$，取对数后，$u_j^Tv_i \approx log \alpha + logx_{ij} -logx_i$，我们使用额外的偏差项来拟合$-log \alpha + logx_i$，例如，中心词偏差项$b_i$和背景词偏差项$c_j$：<br>$$<br>u_j^Tv_i + b_i + c_j \approx log(x_{ij})<br>$$<br>对上式左右两边取平方误差并加权，即为GloVe模型的损失函数。</p>
 
             </div>
             <hr/>
@@ -641,9 +644,9 @@ GAN主要由生成网络G（Gene">
             <br/>
             <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
                   property="dct:title" rel="dct:type">
-                    《这！就是对抗生成网络（四十六）》
+                    《这！就是NLP之负采样和GloVe（四十八）》
                 </span> 由
-            <a xmlns:cc="http://creativecommons.org/ns#" href="/2019/09/29/dl46/" property="cc:attributionName"
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2019/11/10/nlp02/" property="cc:attributionName"
                rel="cc:attributionURL">
                 星辰白衣
             </a> 采用
@@ -684,7 +687,7 @@ GAN主要由生成网络G（Gene">
         repo: 'KnightChen2019.github.io',
         owner: 'KnightChen2019',
         admin: "KnightChen2019",
-        id: '2019-09-29T20-23-13',
+        id: '2019-11-10T16-53-40',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -705,9 +708,64 @@ GAN主要由生成网络G（Gene">
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2019/11/10/nlp02/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="这！就是NLP之负采样和GloVe（四十八）">
+                        
+                        <span class="card-title">这！就是NLP之负采样和GloVe（四十八）</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            不知江月待何人，但见长江送流水。
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-11-10
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/NLP/" class="post-category" target="_blank">
+                                    NLP
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/GloVe/" target="_blank">
+                        <span class="chip bg-color">GloVe</span>
+                    </a>
+                    
+                    <a href="/tags/负采样/" target="_blank">
+                        <span class="chip bg-color">负采样</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2019/11/03/nlp01/">
                     <div class="card-image">
@@ -725,9 +783,9 @@ GAN主要由生成网络G（Gene">
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-11-03
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-11-03
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -749,55 +807,6 @@ GAN主要由生成网络G（Gene">
                     
                     <a href="/tags/Word2Vec/" target="_blank">
                         <span class="chip bg-color">Word2Vec</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2019/09/22/dl45/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="机器学习模型中的一些评估指标（四十五）">
-                        
-                        <span class="card-title">机器学习模型中的一些评估指标（四十五）</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            人闲桂花落，夜静春山空。
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-22
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/模型评估/" class="post-category" target="_blank">
-                                    模型评估
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/模型评估指标/" target="_blank">
-                        <span class="chip bg-color">模型评估指标</span>
                     </a>
                     
                 </div>

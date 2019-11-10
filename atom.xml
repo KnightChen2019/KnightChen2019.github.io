@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://knightchen.com/"/>
-  <updated>2019-11-03T15:23:05.455Z</updated>
+  <updated>2019-11-10T15:22:44.149Z</updated>
   <id>http://knightchen.com/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>这！就是NLP之负采样和GloVe（四十八）</title>
+    <link href="http://knightchen.com/2019/11/10/nlp02/"/>
+    <id>http://knightchen.com/2019/11/10/nlp02/</id>
+    <published>2019-11-10T08:53:40.000Z</published>
+    <updated>2019-11-10T15:22:44.149Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;Negative-Sampling-（负采样）&quot;&gt;&lt;a href=&quot;#Negative-Sampling-（负采样）&quot; class=&quot;headerlink&quot; title=&quot;Negative Sampling （负采样）&quot;&gt;&lt;/a&gt;Negative
+        
+      
+    
+    </summary>
+    
+      <category term="NLP" scheme="http://knightchen.com/categories/NLP/"/>
+    
+    
+      <category term="GloVe" scheme="http://knightchen.com/tags/GloVe/"/>
+    
+      <category term="负采样" scheme="http://knightchen.com/tags/%E8%B4%9F%E9%87%87%E6%A0%B7/"/>
+    
+  </entry>
   
   <entry>
     <title>这！就是NLP之词向量和Word2Vec（四十七）</title>
