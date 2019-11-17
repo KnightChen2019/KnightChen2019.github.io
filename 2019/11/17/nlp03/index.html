@@ -5,8 +5,7 @@
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <meta name="keywords" content="这！就是NLP之NER（四十九）, 星辰白衣">
-    <meta name="description" content="###什么是NER
-命名实体识别（Named Entity Recognition，NER）是信息提取，问答系统，句法分析，机器翻译等应用领域的基础任务。它主要做的就是识别出待处理文本中的三大类（实体类，时间类和数字类），七小类（人名，组织">
+    <meta name="description" content="什么是NER命名实体识别（Named Entity Recognition，NER）是信息提取，问答系统，句法分析，机器翻译等应用领域的基础任务。它主要做的就是识别出待处理文本中的三大类（实体类，时间类和数字类），七小类（人名，组织机构名，">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -409,7 +408,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        601
+                        599
                     </div>
                     
 
@@ -432,8 +431,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>###什么是NER</p>
-<p>命名实体识别（Named Entity Recognition，NER）是信息提取，问答系统，句法分析，机器翻译等应用领域的基础任务。它主要做的就是识别出待处理文本中的三大类（实体类，时间类和数字类），七小类（人名，组织机构名，地名，事件，日期，货币和百分比）。</p>
+                <h3 id="什么是NER"><a href="#什么是NER" class="headerlink" title="什么是NER"></a>什么是NER</h3><p>命名实体识别（Named Entity Recognition，NER）是信息提取，问答系统，句法分析，机器翻译等应用领域的基础任务。它主要做的就是识别出待处理文本中的三大类（实体类，时间类和数字类），七小类（人名，组织机构名，地名，事件，日期，货币和百分比）。</p>
 <p>举个例子，对句子“小陈明天早上6点去北京天安门看升国旗。”进行NER，应该可以提取的信息有：</p>
 <ul>
 <li>人名：小陈</li>
@@ -441,8 +439,7 @@
 <li>地点：天安门</li>
 <li>事件：看升国旗</li>
 </ul>
-<p>###NER的发展历程</p>
-<p>NER是一种序列标注任务，具体的实现方法可以分为三类：</p>
+<h3 id="NER的发展历程"><a href="#NER的发展历程" class="headerlink" title="NER的发展历程"></a>NER的发展历程</h3><p>NER是一种序列标注任务，具体的实现方法可以分为三类：</p>
 <ol>
 <li>基于规则的方法。根据语言学上预定义的规则，往往需要语言专家的参与。具体的实现可以用正则表达式，但是正则是不能穷举所有情况的，所以这也限制了基于规则的方法的发展。</li>
 <li>基于统计的方法。利用原始或者人工标注的语料进行训练，语料不需要特定领域的专家参与就可以完成标注。常用到的基于统计的模型有HMM，SVM，CRF和Viterbi算法。</li>
@@ -450,8 +447,7 @@
 </ol>
 <p>上面的分类，其实也对应着NER的一个发展历史，如下图所示：</p>
 <p><img src="/2019/11/17/nlp03/nlp0301.jpg" alt="NER发展历史"></p>
-<p>###NER例子</p>
-<p>这里用到了一个库NLTK，它是一个比较优秀的自然语言处理工具包，先来看看它对命名实体识别的分类，如下图：</p>
+<h3 id="NER例子"><a href="#NER例子" class="headerlink" title="NER例子"></a>NER例子</h3><p>这里用到了一个库NLTK，它是一个比较优秀的自然语言处理工具包，先来看看它对命名实体识别的分类，如下图：</p>
 <p><img src="/2019/11/17/nlp03/nlp0302.jpg" alt="NLTK中对NER的分类"></p>
 <p>上图中，LOCATION和GPE有部分重合。GPE通常表示地址位置，比如洲，国家，州，城市等，而LOCATION除了上述内容外，还能表示名山大川等。FACILITY通常表示知名的纪念碑或人工制品等。</p>
 <p>测试文本：</p>
